@@ -1,5 +1,6 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { Eye, CheckCircle, MapPin, Calendar, Heart } from 'lucide-react';
+import { CheckCircle, Calendar, Heart } from 'lucide-react';
 
 export default function OculistaPediatricoBologna() {
   return (

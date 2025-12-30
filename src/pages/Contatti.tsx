@@ -1,5 +1,6 @@
 import { Phone, Mail, MapPin, Calendar } from 'lucide-react';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 export default function Contatti() {
   const [formData, setFormData] = useState({
@@ -41,7 +42,7 @@ export default function Contatti() {
                   <Mail className="w-6 h-6 text-blue-600 mt-1 flex-shrink-0" />
                   <div>
                     <p className="font-semibold text-gray-900 mb-1">Email</p>
-                    <a href="mailto:info@mariadisanzo.it" className="text-blue-600 text-lg hover:text-blue-700">info@mariadisanzo.it</a>
+                    <a href="mailto:mariadisanzo@gmail.com" className="text-blue-600 text-lg hover:text-blue-700">mariadisanzo@gmail.com</a>
                   </div>
                 </div>
 
@@ -58,9 +59,15 @@ export default function Contatti() {
               <div className="bg-gradient-to-br from-blue-600 to-blue-700 p-8 rounded-xl text-white">
                 <Calendar className="w-12 h-12 mb-4" />
                 <h4 className="text-2xl font-bold mb-3">Prenota la tua visita</h4>
-                <p className="leading-relaxed">
-                  Compila il modulo o contattaci telefonicamente per prenotare una visita oculistica.
+                <p className="leading-relaxed mb-6">
+                  Verifica le disponibilità in tempo reale e prenota il tuo appuntamento online.
                 </p>
+                <Link 
+                  to="/prenotazione" 
+                  className="inline-block bg-white text-blue-600 font-bold py-3 px-6 rounded-lg hover:bg-blue-50 transition-colors shadow-md"
+                >
+                  Prenota Online
+                </Link>
               </div>
             </div>
 

@@ -41,7 +41,7 @@ export default function Footer() {
               </p>
               <p className="flex items-center space-x-2">
                 <Mail className="w-4 h-4" />
-                <span>info@mariadisanzo.it</span>
+                <span>mariadisanzo@gmail.com</span>
               </p>
               <p className="flex items-start space-x-2">
                 <MapPin className="w-4 h-4 mt-1 flex-shrink-0" />

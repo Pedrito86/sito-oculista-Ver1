@@ -8,6 +8,7 @@ import Servizi from './pages/Servizi';
 import VisitaOculisticaBologna from './pages/VisitaOculisticaBologna';
 import OculistaPediatricoBologna from './pages/OculistaPediatricoBologna';
 import Contatti from './pages/Contatti';
+import Prenotazione from './pages/Prenotazione';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
             <Route path="/visita-oculistica-bologna" element={<VisitaOculisticaBologna />} />
             <Route path="/oculista-pediatrico-bologna" element={<OculistaPediatricoBologna />} />
             <Route path="/contatti" element={<Contatti />} />
+            <Route path="/prenotazione" element={<Prenotazione />} />
           </Routes>
         </main>
         <Footer />

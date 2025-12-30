@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Eye, CheckCircle, MapPin, Calendar } from 'lucide-react';
+import { CheckCircle, MapPin, Calendar } from 'lucide-react';
 
 export default function VisitaOculisticaBologna() {
   return (
