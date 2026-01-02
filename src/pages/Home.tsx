@@ -9,7 +9,7 @@ export default function Home() {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
-                Dott.ssa Maria Di Sanzo
+                Dott.ssa Maria <br /> Di Sanzo
               </h2>
               <p className="text-2xl text-blue-600 font-semibold mb-6">
                 Oculista Specialista a Bologna
@@ -97,7 +97,7 @@ export default function Home() {
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-50 to-blue-50">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Dove visitare a Bologna</h2>
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Dove visita a Bologna</h2>
             <div className="w-24 h-1 bg-blue-600 mx-auto"></div>
           </div>
 

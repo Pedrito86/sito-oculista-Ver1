@@ -1,4 +1,4 @@
-import { Eye, Phone, Mail, MapPin } from 'lucide-react';
+import { Eye, Phone, Mail, MapPin, Lock } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export default function Footer() {
@@ -29,6 +29,7 @@ export default function Footer() {
               <Link to="/visita-oculistica-bologna" className="text-gray-400 hover:text-blue-400 transition-colors">Visita Oculistica Bologna</Link>
               <Link to="/oculista-pediatrico-bologna" className="text-gray-400 hover:text-blue-400 transition-colors">Oculista Pediatrico Bologna</Link>
               <Link to="/contatti" className="text-gray-400 hover:text-blue-400 transition-colors">Contatti</Link>
+              <Link to="/privacy-policy" className="text-gray-400 hover:text-blue-400 transition-colors">Privacy & Cookie Policy</Link>
             </div>
           </div>
 
@@ -51,8 +52,12 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-gray-800 pt-8 text-center text-gray-400 text-sm">
+        <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-gray-400 text-sm">
           <p>&copy; {new Date().getFullYear()} Dott.ssa Maria Di Sanzo - Oculista. Tutti i diritti riservati.</p>
+          <Link to="/admin" className="flex items-center mt-4 md:mt-0 hover:text-blue-400 transition-colors opacity-50 hover:opacity-100">
+            <Lock className="w-3 h-3 mr-1" />
+            Area Riservata
+          </Link>
         </div>
       </div>
     </footer>

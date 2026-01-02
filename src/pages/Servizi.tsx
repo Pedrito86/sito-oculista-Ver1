@@ -1,4 +1,4 @@
-import { Users, Eye, Stethoscope, CheckCircle } from 'lucide-react';
+import { Users, Eye, ScanEye, CheckCircle } from 'lucide-react';
 
 export default function Servizi() {
   return (
@@ -33,7 +33,7 @@ export default function Servizi() {
 
             <div className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-shadow border border-gray-100">
               <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-6">
-                <Stethoscope className="w-8 h-8 text-blue-600" />
+                <ScanEye className="w-8 h-8 text-blue-600" />
               </div>
               <h3 className="text-2xl font-bold text-gray-900 mb-4">Esami Diagnostici</h3>
               <p className="text-gray-600 leading-relaxed mb-4">
@@ -105,8 +105,7 @@ export default function Servizi() {
                 </thead>
                 <tbody>
                   {[
-                    { service: 'Prima visita oculistica', price: 'da €120' },
-                    { service: 'Visita di controllo', price: 'da €120' },
+                    { service: 'Visita completa', price: 'da €120' },
                     { service: 'Visita oculistica pediatrica', price: 'da €120' },
                     { service: 'Esame OCT', price: 'da €100' },
                     { service: 'Screening visivo pediatrico', price: 'da €120' }

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Eye } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 
 export default function Navbar() {
@@ -21,19 +21,8 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           <Link to="/" className="flex items-center space-x-3" onClick={closeMenu}>
-            <div 
-              className="w-20 h-20 rounded-full overflow-hidden border-2 flex items-center justify-center shadow-sm"
-              style={{ 
-                backgroundColor: '#5F9EA0',
-                borderColor: '#5F9EA0',
-                filter: 'hue-rotate(30deg) saturate(1.2) brightness(1.1)' 
-              }}
-            >
-              <img 
-                src="/occhio-logo.png" 
-                alt="Logo Dott.ssa Maria Di Sanzo" 
-                className="w-full h-full object-contain"
-              />
+            <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center shadow-md">
+              <Eye className="w-8 h-8 text-white" />
             </div>
             <div>
               <h1 className="text-xl font-bold text-gray-900">Dott.ssa Maria Di Sanzo</h1>

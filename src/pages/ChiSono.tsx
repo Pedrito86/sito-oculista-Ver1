@@ -1,4 +1,4 @@
-import { Stethoscope, Award, CheckCircle, Users } from 'lucide-react';
+import { ScanEye, Award, CheckCircle, Users } from 'lucide-react';
 
 export default function ChiSono() {
   return (
@@ -14,8 +14,8 @@ export default function ChiSono() {
             <div>
               <div className="bg-gradient-to-br from-blue-50 to-white p-8 rounded-2xl border-2 border-blue-100">
                 <div className="w-20 h-20 bg-blue-600 rounded-full flex items-center justify-center mb-6 mx-auto">
-                  <Stethoscope className="w-10 h-10 text-white" />
-                </div>
+                <ScanEye className="w-10 h-10 text-white" />
+              </div>
                 <h3 className="text-3xl font-bold text-gray-900 mb-6 text-center">Dott.ssa Maria Di Sanzo</h3>
                 <p className="text-gray-700 leading-relaxed mb-6">
                   Sono un medico chirurgo specialista in Oftalmologia, laureata con lode presso l'Università di Bologna e specializzata con lode all'Università degli Studi di Ferrara.

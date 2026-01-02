@@ -1,16 +1,26 @@
-import React, { useState } from 'react';
-import { ChevronLeft, ChevronRight, Calendar as CalendarIcon, CheckCircle } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { ChevronLeft, ChevronRight, Calendar as CalendarIcon, CheckCircle, Loader2, CalendarPlus } from 'lucide-react';
+import emailjs from '@emailjs/browser';
+import { EMAIL_CONFIG } from '../config/email';
+import { supabase } from '../lib/supabase';
 
 export default function Prenotazione() {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
   const [bookingConfirmed, setBookingConfirmed] = useState(false);
+  const [cancellationLink, setCancellationLink] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: ''
   });
+  
+  const [occupiedSlots, setOccupiedSlots] = useState<string[]>([]);
+  const [loadingSlots, setLoadingSlots] = useState(false);
+  const [scheduleOverrides, setScheduleOverrides] = useState<Record<string, boolean>>({}); // 'YYYY-MM-DD': true/false
 
   // Configuration
   const availableDays = [1, 3]; // 1 = Monday, 3 = Wednesday
@@ -18,6 +28,36 @@ export default function Prenotazione() {
     '14:30', '15:00', '15:30', '16:00', 
     '16:30', '17:00', '17:30', '18:00', '18:30'
   ];
+
+  useEffect(() => {
+    fetchScheduleOverrides();
+  }, [currentDate]);
+
+  const fetchScheduleOverrides = async () => {
+    // Calcola inizio e fine del mese visualizzato (inclusi un po' di giorni prima/dopo per sicurezza)
+    const year = currentDate.getFullYear();
+    const month = currentDate.getMonth();
+    const startDate = new Date(year, month, 1).toISOString().split('T')[0];
+    const endDate = new Date(year, month + 1, 7).toISOString().split('T')[0]; // Un po' di buffer
+
+    try {
+      const { data, error } = await supabase
+        .from('schedule_overrides')
+        .select('date, is_available')
+        .gte('date', startDate)
+        .lte('date', endDate);
+
+      if (error) throw error;
+
+      const overridesMap: Record<string, boolean> = {};
+      data?.forEach((item: any) => {
+        overridesMap[item.date] = item.is_available;
+      });
+      setScheduleOverrides(overridesMap);
+    } catch (err) {
+      console.error('Error fetching schedule overrides:', err);
+    }
+  };
 
   // Calendar Helpers
   const getDaysInMonth = (date: Date) => {
@@ -42,43 +82,162 @@ export default function Prenotazione() {
 
   const isDayAvailable = (day: number) => {
     const date = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
+    const dateStr = date.toLocaleDateString('en-CA'); // YYYY-MM-DD local
+
+    // 1. Check override
+    if (scheduleOverrides[dateStr] !== undefined) {
+      return scheduleOverrides[dateStr];
+    }
+
+    // 2. Fallback to standard days
     const dayOfWeek = date.getDay(); // 0 = Sun, 1 = Mon, ...
     return availableDays.includes(dayOfWeek);
   };
 
   const handleDateClick = (day: number) => {
     if (isDayAvailable(day)) {
-      setSelectedDate(new Date(currentDate.getFullYear(), currentDate.getMonth(), day));
+      const newDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
+      // Adjust timezone offset to avoid date shifting when saving/reading ISO strings
+      // Or simply use local date string for querying
+      
+      setSelectedDate(newDate);
       setSelectedSlot(null);
       setBookingConfirmed(false);
+      fetchOccupiedSlots(newDate);
     }
   };
 
-  const handleBooking = (e: React.FormEvent) => {
+  const fetchOccupiedSlots = async (date: Date) => {
+    setLoadingSlots(true);
+    setOccupiedSlots([]);
+    
+    // Format date as YYYY-MM-DD to match database
+    // We use 'en-CA' because it outputs YYYY-MM-DD format consistently
+    const dateStr = date.toLocaleDateString('en-CA'); 
+
+    try {
+      const { data, error } = await supabase
+        .from('bookings')
+        .select('time')
+        .eq('date', dateStr)
+        .eq('status', 'confirmed');
+
+      if (error) throw error;
+
+      if (data) {
+        setOccupiedSlots(data.map(booking => booking.time));
+      }
+    } catch (error) {
+      console.error('Errore recupero disponibilità:', error);
+    } finally {
+      setLoadingSlots(false);
+    }
+  };
+
+  const handleBooking = async (e: React.FormEvent) => {
     e.preventDefault();
     if (selectedDate && selectedSlot && formData.name && formData.email && formData.phone) {
-      const subject = `Nuova Richiesta Prenotazione: ${formData.name}`;
-      const body = `
-Gentile Dott.ssa Di Sanzo,
+      setIsSubmitting(true);
+      setSubmitError(null);
 
-Vorrei richiedere un appuntamento per una visita oculistica.
+      const dateStr = selectedDate.toLocaleDateString('en-CA'); // YYYY-MM-DD
 
-Dettagli Richiesta:
-- Paziente: ${formData.name}
-- Email: ${formData.email}
-- Telefono: ${formData.phone}
-- Data richiesta: ${selectedDate.toLocaleDateString('it-IT', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}
-- Orario richiesto: ${selectedSlot}
+      try {
+        // 1. Verifica disponibilità finale (double check)
+        const { data: existing } = await supabase
+          .from('bookings')
+          .select('id')
+          .eq('date', dateStr)
+          .eq('time', selectedSlot)
+          .eq('status', 'confirmed')
+          .single();
 
-In attesa di una vostra conferma.
-Cordiali saluti,
-${formData.name}
-      `.trim();
+        if (existing) {
+          throw new Error('Questo orario è stato appena prenotato da un altro utente.');
+        }
 
-      window.location.href = `mailto:mariadisanzo@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-      
-      setBookingConfirmed(true);
+        // 2. Inserisci prenotazione su Supabase
+        const { data: newBooking, error: insertError } = await supabase
+          .from('bookings')
+          .insert([
+            {
+              date: dateStr,
+              time: selectedSlot,
+              name: formData.name,
+              email: formData.email,
+              phone: formData.phone,
+              status: 'confirmed'
+            }
+          ])
+          .select('cancellation_token')
+          .single();
+
+        if (insertError) throw insertError;
+        
+        const cancellationToken = newBooking?.cancellation_token;
+        const link = `${window.location.origin}/cancella-prenotazione?token=${cancellationToken}`;
+        setCancellationLink(link);
+        
+        // Log per debug immediato (utile se l'email non arriva)
+        console.log('Link cancellazione generato:', link);
+
+        // 3. Invia Email con EmailJS
+        const cleanEmail = formData.email.trim();
+        
+        const templateParams = {
+          to_name: 'Dott.ssa Di Sanzo',
+          from_name: formData.name,
+          from_email: cleanEmail,     // Variabile per chi invia
+          patient_email: cleanEmail,  // Variabile esplicita per il destinatario (paziente)
+          to_email: cleanEmail,       // Fallback comune
+          reply_to: cleanEmail,       // Utile per il "Reply-To"
+          phone: formData.phone,
+          date: selectedDate.toLocaleDateString('it-IT', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }),
+          time: selectedSlot,
+          type: 'Prenotazione Visita',
+          cancellation_link: link // Assicurati di aggiungere {{cancellation_link}} nel template EmailJS
+        };
+
+        await emailjs.send(
+          EMAIL_CONFIG.SERVICE_ID,
+          EMAIL_CONFIG.TEMPLATE_ID,
+          templateParams,
+          EMAIL_CONFIG.PUBLIC_KEY
+        );
+        
+        setBookingConfirmed(true);
+        // Refresh slots just in case
+        fetchOccupiedSlots(selectedDate);
+        
+      } catch (error: any) {
+        console.error('Errore prenotazione:', error);
+        // EmailJS returns error.text, Error objects return error.message
+        const errorMessage = error.text || error.message || 'Si è verificato un errore. Riprova più tardi.';
+        setSubmitError(errorMessage);
+      } finally {
+        setIsSubmitting(false);
+      }
     }
+  };
+
+  const getGoogleCalendarUrl = () => {
+    if (!selectedDate || !selectedSlot) return '';
+    
+    const [hours, minutes] = selectedSlot.split(':').map(Number);
+    const startDate = new Date(selectedDate);
+    startDate.setHours(hours, minutes);
+    
+    const endDate = new Date(startDate);
+    endDate.setMinutes(endDate.getMinutes() + 30); // 30 min duration
+    
+    const formatDate = (date: Date) => {
+      return date.toISOString().replace(/-|:|\.\d\d\d/g, "");
+    };
+
+    const details = `Prenotazione visita oculistica con Dott.ssa Di Sanzo\nTel: +39 347 070 0989\nLuogo: Ospedale Maggiore di Bologna`;
+    const location = "Largo Bartolo Nigrisoli, Bologna";
+
+    return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=Visita Oculistica Dott.ssa Di Sanzo&dates=${formatDate(startDate)}/${formatDate(endDate)}&details=${encodeURIComponent(details)}&location=${encodeURIComponent(location)}`;
   };
 
   const renderCalendar = () => {
@@ -186,9 +345,37 @@ ${formData.name}
                     {selectedDate?.toLocaleDateString('it-IT', { weekday: 'long', day: 'numeric', month: 'long' })}
                   </span> alle ore <span className="font-bold text-gray-900">{selectedSlot}</span>.
                 </p>
-                <p className="text-sm text-gray-500">
-                  Ti contatteremo a breve all'indirizzo {formData.email} per la conferma definitiva.
-                </p>
+
+                {cancellationLink && (
+                  <div className="mb-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg text-sm text-yellow-800 max-w-md w-full">
+                    <p className="font-semibold mb-2 flex items-center justify-center">
+                      <span className="mr-2">⚠️</span> Gestione Appuntamento
+                    </p>
+                    <p className="mb-2">
+                      Abbiamo inviato una email di conferma a <strong>{formData.email}</strong>.
+                      Se necessario, puoi cancellare l'appuntamento usando il link nell'email o cliccando qui sotto:
+                    </p>
+                    <a 
+                      href={cancellationLink} 
+                      className="text-blue-600 hover:text-blue-800 underline font-medium break-all"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Cancella / Gestisci Prenotazione
+                    </a>
+                  </div>
+                )}
+
+                <a 
+                  href={getGoogleCalendarUrl()}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center space-x-2 bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors shadow-md"
+                >
+                  <CalendarPlus className="w-5 h-5" />
+                  <span>Aggiungi al Calendario</span>
+                </a>
+
                 <button 
                   onClick={() => {
                     setBookingConfirmed(false);
@@ -196,7 +383,7 @@ ${formData.name}
                     setSelectedSlot(null);
                     setFormData({ name: '', email: '', phone: '' });
                   }}
-                  className="mt-8 text-blue-600 font-semibold hover:underline"
+                  className="mt-4 text-blue-600 hover:text-blue-800 font-medium text-sm"
                 >
                   Prenota un'altra visita
                 </button>
@@ -213,15 +400,31 @@ ${formData.name}
 
                 {!selectedSlot ? (
                   <div className="grid grid-cols-2 gap-3 mb-8 overflow-y-auto max-h-[400px] pr-2">
-                    {timeSlots.map(slot => (
-                      <button
-                        key={slot}
-                        onClick={() => setSelectedSlot(slot)}
-                        className="py-3 px-4 rounded-lg text-sm font-semibold transition-all border bg-white text-gray-700 border-gray-200 hover:border-blue-400 hover:text-blue-600 hover:shadow-md"
-                      >
-                        {slot}
-                      </button>
-                    ))}
+                    {loadingSlots ? (
+                      <div className="col-span-2 flex justify-center py-8">
+                        <Loader2 className="w-8 h-8 text-blue-600 animate-spin" />
+                      </div>
+                    ) : (
+                      timeSlots.map(slot => {
+                        const isOccupied = occupiedSlots.includes(slot);
+                        return (
+                          <button
+                            key={slot}
+                            onClick={() => !isOccupied && setSelectedSlot(slot)}
+                            disabled={isOccupied}
+                            className={`
+                              py-3 px-4 rounded-lg text-sm font-semibold transition-all border 
+                              ${isOccupied 
+                                ? 'bg-gray-100 text-gray-400 border-gray-100 cursor-not-allowed decoration-slice' 
+                                : 'bg-white text-gray-700 border-gray-200 hover:border-blue-400 hover:text-blue-600 hover:shadow-md'
+                              }
+                            `}
+                          >
+                            {slot} {isOccupied && '(Occupato)'}
+                          </button>
+                        );
+                      })
+                    )}
                   </div>
                 ) : (
                   <form onSubmit={handleBooking} className="flex-grow flex flex-col">
@@ -265,18 +468,35 @@ ${formData.name}
                     </div>
 
                     <div className="mt-auto space-y-3">
-                      <button
-                        type="submit"
-                        className="w-full py-4 rounded-xl text-lg font-bold transition-all shadow-lg flex items-center justify-center bg-blue-600 text-white hover:bg-blue-700 hover:scale-[1.02]"
-                      >
-                        <CalendarIcon className="w-5 h-5 mr-2" />
-                        Conferma Prenotazione
-                      </button>
+                      {submitError && (
+                        <div className="p-3 text-sm text-red-600 bg-red-50 rounded-lg">
+                          {submitError}
+                        </div>
+                      )}
                       
                       <button
+                        type="submit"
+                        disabled={isSubmitting}
+                        className="w-full py-4 rounded-xl text-lg font-bold transition-all shadow-lg flex items-center justify-center bg-blue-600 text-white hover:bg-blue-700 hover:scale-[1.02] disabled:opacity-70 disabled:cursor-not-allowed"
+                      >
+                        {isSubmitting ? (
+                          <>
+                            <Loader2 className="w-5 h-5 mr-2 animate-spin" />
+                            Invio in corso...
+                          </>
+                        ) : (
+                          <>
+                            <CalendarIcon className="w-5 h-5 mr-2" />
+                            Conferma Prenotazione
+                          </>
+                        )}
+                      </button>
+
+                      <button
                         type="button"
+                        disabled={isSubmitting}
                         onClick={() => setSelectedSlot(null)}
-                        className="w-full py-3 text-gray-600 font-medium hover:text-gray-900 transition-colors"
+                        className="w-full py-3 text-gray-600 font-medium hover:text-gray-900 transition-colors disabled:opacity-50"
                       >
                         Cambia orario
                       </button>
