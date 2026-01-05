@@ -76,13 +76,18 @@ export default function OculistaPediatricoBologna() {
 
             <div className="mt-12 text-center">
               <h3 className="text-2xl font-bold text-gray-900 mb-6">Prenota una visita per il tuo bambino</h3>
-              <Link
-                to="/contatti"
-                className="inline-flex items-center justify-center bg-blue-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-blue-700 transition-all shadow-lg"
-              >
-                <Calendar className="w-5 h-5 mr-2" />
-                Contatta per appuntamento
-              </Link>
+              <div className="flex flex-col items-center">
+                <Link
+                  to="/prenotazione"
+                  className="inline-flex items-center justify-center bg-blue-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-blue-700 transition-all shadow-lg"
+                >
+                  <Calendar className="w-5 h-5 mr-2" />
+                  Prenota visita oculistica pediatrica
+                </Link>
+                <p className="mt-4 text-sm text-gray-500 font-medium">
+                  Risposta via email • Nessun impegno immediato • Prenotazione semplice
+                </p>
+              </div>
             </div>
           </div>
         </div>
