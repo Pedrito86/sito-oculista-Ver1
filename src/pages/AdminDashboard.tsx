@@ -24,34 +24,30 @@ export default function AdminDashboard() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    checkUser();
-    fetchBookings();
-  }, []);
+    const run = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) {
+        navigate('/admin');
+        return;
+      }
+      setLoading(true);
+      try {
+        const { data, error } = await supabase
+          .from('bookings')
+          .select('*')
+          .order('date', { ascending: true })
+          .order('time', { ascending: true });
 
-  const checkUser = async () => {
-    const { data: { session } } = await supabase.auth.getSession();
-    if (!session) {
-      navigate('/admin');
-    }
-  };
-
-  const fetchBookings = async () => {
-    setLoading(true);
-    try {
-      const { data, error } = await supabase
-        .from('bookings')
-        .select('*')
-        .order('date', { ascending: true })
-        .order('time', { ascending: true });
-
-      if (error) throw error;
-      setBookings(data || []);
-    } catch (error) {
-      console.error('Errore recupero prenotazioni:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
+        if (error) throw error;
+        setBookings(data || []);
+      } catch (error) {
+        console.error('Errore recupero prenotazioni:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    run();
+  }, [navigate]);
 
   const handleLogout = async () => {
     await supabase.auth.signOut();

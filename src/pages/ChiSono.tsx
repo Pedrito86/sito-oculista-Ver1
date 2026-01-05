@@ -1,4 +1,4 @@
-import { ScanEye, Award, CheckCircle, Users } from 'lucide-react';
+import { Award, CheckCircle, Users } from 'lucide-react';
 
 export default function ChiSono() {
   return (
@@ -12,11 +12,21 @@ export default function ChiSono() {
 
           <div className="grid md:grid-cols-2 gap-12 items-start">
             <div>
-              <div className="bg-gradient-to-br from-blue-50 to-white p-8 rounded-2xl border-2 border-blue-100">
-                <div className="w-20 h-20 bg-blue-600 rounded-full flex items-center justify-center mb-6 mx-auto">
-                <ScanEye className="w-10 h-10 text-white" />
-              </div>
-                <h3 className="text-3xl font-bold text-gray-900 mb-6 text-center">Dott.ssa Maria Di Sanzo</h3>
+              <div className="bg-gradient-to-br from-blue-50 to-white p-8 card border-2 border-blue-100">
+                <div className="flex flex-col md:flex-row items-center md:items-start gap-6 mb-6">
+                  <div className="relative w-32 h-32 flex-shrink-0">
+                    <img 
+                      src="/oculista-bologna-di-sanzo.jpg" 
+                      alt="Dott.ssa Maria Di Sanzo" 
+                      className="w-full h-full object-cover rounded-full border-4 border-blue-100 shadow-md"
+                    />
+                  </div>
+                  <div className="text-center md:text-left">
+                    <h3 className="text-3xl font-bold text-gray-900 mb-2">Dott.ssa Maria Di Sanzo</h3>
+                    <p className="text-blue-600 font-medium">Medico Chirurgo Specialista in Oftalmologia</p>
+                  </div>
+                </div>
+                
                 <p className="text-gray-700 leading-relaxed mb-6">
                   Sono un medico chirurgo specialista in Oftalmologia, laureata con lode presso l'Università di Bologna e specializzata con lode all'Università degli Studi di Ferrara.
                 </p>
@@ -24,7 +34,7 @@ export default function ChiSono() {
                   Svolgo attività ambulatoriale e diagnostica presso l'AUSL di Bologna, dove seguo pazienti adulti e pediatrici con un approccio attento, moderno e personalizzato.
                 </p>
                 <p className="text-gray-700 leading-relaxed">
-                  Il mio obiettivo è garantire a ogni paziente una valutazione accurata, una diagnosi chiara e un percorso terapeutico efficace, privilegiando professionalità, ascolto e trasparenza.
+                  Credo in una medicina basata sull’ascolto, sulla precisione diagnostica e su un rapporto di fiducia con il paziente.
                 </p>
               </div>
             </div>

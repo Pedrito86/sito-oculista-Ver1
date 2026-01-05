@@ -70,8 +70,9 @@ export default function AdminSchedule() {
       setNewEndDate('');
       setNewNote('');
       fetchOverrides();
-    } catch (err: any) {
-      setError(err.message || 'Errore salvataggio');
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : 'Errore salvataggio';
+      setError(message);
     }
   };
 
@@ -86,7 +87,7 @@ export default function AdminSchedule() {
 
       if (error) throw error;
       setOverrides(overrides.filter(o => o.date !== date));
-    } catch (err) {
+    } catch {
       alert('Errore cancellazione');
     }
   };

@@ -30,34 +30,32 @@ export default function Prenotazione() {
   ];
 
   useEffect(() => {
-    fetchScheduleOverrides();
+    const loadOverrides = async () => {
+      const year = currentDate.getFullYear();
+      const month = currentDate.getMonth();
+      const startDate = new Date(year, month, 1).toISOString().split('T')[0];
+      const endDate = new Date(year, month + 1, 7).toISOString().split('T')[0];
+
+      try {
+        const { data, error } = await supabase
+          .from('schedule_overrides')
+          .select('date, is_available')
+          .gte('date', startDate)
+          .lte('date', endDate);
+
+        if (error) throw error;
+
+        const overridesMap: Record<string, boolean> = {};
+        data?.forEach((item: { date: string; is_available: boolean }) => {
+          overridesMap[item.date] = item.is_available;
+        });
+        setScheduleOverrides(overridesMap);
+      } catch (err) {
+        console.error('Error fetching schedule overrides:', err);
+      }
+    };
+    loadOverrides();
   }, [currentDate]);
-
-  const fetchScheduleOverrides = async () => {
-    // Calcola inizio e fine del mese visualizzato (inclusi un po' di giorni prima/dopo per sicurezza)
-    const year = currentDate.getFullYear();
-    const month = currentDate.getMonth();
-    const startDate = new Date(year, month, 1).toISOString().split('T')[0];
-    const endDate = new Date(year, month + 1, 7).toISOString().split('T')[0]; // Un po' di buffer
-
-    try {
-      const { data, error } = await supabase
-        .from('schedule_overrides')
-        .select('date, is_available')
-        .gte('date', startDate)
-        .lte('date', endDate);
-
-      if (error) throw error;
-
-      const overridesMap: Record<string, boolean> = {};
-      data?.forEach((item: any) => {
-        overridesMap[item.date] = item.is_available;
-      });
-      setScheduleOverrides(overridesMap);
-    } catch (err) {
-      console.error('Error fetching schedule overrides:', err);
-    }
-  };
 
   // Calendar Helpers
   const getDaysInMonth = (date: Date) => {
@@ -209,10 +207,17 @@ export default function Prenotazione() {
         // Refresh slots just in case
         fetchOccupiedSlots(selectedDate);
         
-      } catch (error: any) {
+      } catch (error: unknown) {
         console.error('Errore prenotazione:', error);
-        // EmailJS returns error.text, Error objects return error.message
-        const errorMessage = error.text || error.message || 'Si è verificato un errore. Riprova più tardi.';
+        let errorMessage = 'Si è verificato un errore. Riprova più tardi.';
+        if (typeof error === 'object' && error && 'text' in error) {
+          const maybeText = (error as { text?: string }).text;
+          if (typeof maybeText === 'string') {
+            errorMessage = maybeText;
+          }
+        } else if (error instanceof Error) {
+          errorMessage = error.message;
+        }
         setSubmitError(errorMessage);
       } finally {
         setIsSubmitting(false);

@@ -24,8 +24,9 @@ export default function AdminLogin() {
       if (error) throw error;
       
       navigate('/admin/dashboard');
-    } catch (err: any) {
-      setError(err.message || 'Credenziali non valide');
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : 'Credenziali non valide';
+      setError(message);
     } finally {
       setLoading(false);
     }

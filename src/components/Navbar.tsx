@@ -25,7 +25,11 @@ export default function Navbar() {
               <Eye className="w-8 h-8 text-white" />
             </div>
             <div>
-              <h1 className="text-xl font-bold text-gray-900">Dott.ssa Maria Di Sanzo</h1>
+              {location.pathname === '/' ? (
+                <div className="text-xl font-bold text-gray-900">Dott.ssa Maria Di Sanzo</div>
+              ) : (
+                <div className="text-xl font-bold text-gray-900">Dott.ssa Maria Di Sanzo</div>
+              )}
               <p className="text-sm text-blue-600">Oculista Specialista</p>
             </div>
           </Link>

@@ -1,24 +1,35 @@
 import { MapPin, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 
 export default function Home() {
   return (
     <div className="pt-20">
-      <section id="home" className="pt-12 pb-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-blue-50 via-white to-blue-50">
+      <Helmet>
+        <title>Oculista a Bologna | Visite per Adulti e Bambini – Dott.ssa Maria Di Sanzo</title>
+        <meta 
+          name="description" 
+          content="Oculista a Bologna presso AUSL. Visite oculistiche per adulti e bambini. Cura e prevenzione della vista. Prenota una visita." 
+        />
+      </Helmet>
+      <section id="home" className="pt-12 pb-20 px-4 sm:px-6 lg:px-8" style={{ background: 'linear-gradient(135deg, #f5f9ff, #ffffff)' }}>
         <div className="max-w-7xl mx-auto">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
-                Dott.ssa Maria <br /> Di Sanzo
-              </h2>
-              <p className="text-2xl text-blue-600 font-semibold mb-6">
-                Oculista Specialista a Bologna
+              <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+                Oculista a Bologna per la cura e la prevenzione della vista
+              </h1>
+              <p className="text-2xl text-blue-600 font-semibold mb-2">
+                Oculista per adulti e bambini – AUSL Bologna
+              </p>
+              <p className="text-xl text-gray-800 font-medium mb-6">
+                Dott.ssa Maria Di Sanzo
               </p>
               <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-                Visite oculistiche, diagnostica avanzata e prevenzione visiva per adulti e bambini presso l'AUSL di Bologna.
+                La Dott.ssa Maria Di Sanzo è oculista a Bologna e svolge la propria attività presso l’AUSL di Bologna, occupandosi della prevenzione, diagnosi e cura delle principali patologie oculari. Esegue visite oculistiche per adulti e bambini, con particolare attenzione alla salute visiva in ogni fase della vita.
               </p>
               <p className="text-lg text-gray-700 mb-10 leading-relaxed">
-                Prenota una visita per prenderti cura della tua vista con l'aiuto di una professionista attenta, preparata e orientata al benessere del paziente.
+                Un approccio attento, chiaro e professionale, pensato per accompagnare ogni paziente con serenità durante la visita oculistica.
               </p>
 
               <div className="space-y-4 mb-10">
@@ -36,13 +47,18 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Link
-                  to="/prenotazione"
-                  className="bg-blue-600 text-center text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-blue-700 transition-all transform hover:scale-105 shadow-lg"
-                >
-                  Prenota ora
-                </Link>
+              <div className="flex flex-col sm:flex-row gap-4 items-start">
+                <div className="flex flex-col items-center">
+                  <Link
+                    to="/prenotazione"
+                    className="bg-blue-600 text-center text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-blue-700 transition-all transform hover:scale-105 shadow-lg"
+                  >
+                    Prenota un appuntamento
+                  </Link>
+                  <p className="text-xs text-gray-500 mt-2 text-center">
+                    Risposta via email • Nessun impegno immediato
+                  </p>
+                </div>
                 <Link
                   to="/servizi"
                   className="bg-white text-center text-blue-600 border-2 border-blue-600 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-blue-50 transition-all"
@@ -69,22 +85,22 @@ export default function Home() {
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="grid md:grid-cols-3 gap-8 text-center">
-            <div className="p-6 bg-blue-50 rounded-xl hover:shadow-lg transition-shadow">
-              <h3 className="text-xl font-bold text-gray-900 mb-3">Visite Adulti</h3>
+            <div className="p-6 bg-blue-50 card">
+              <h3 className="text-xl font-bold text-gray-900 mb-3">Visite oculistiche per adulti</h3>
               <p className="text-gray-600 mb-4">Controllo completo della vista e diagnosi patologie.</p>
               <Link to="/visita-oculistica-bologna" className="text-blue-600 font-semibold flex items-center justify-center hover:underline">
                 Scopri di più <ArrowRight className="w-4 h-4 ml-1" />
               </Link>
             </div>
-            <div className="p-6 bg-blue-50 rounded-xl hover:shadow-lg transition-shadow">
-              <h3 className="text-xl font-bold text-gray-900 mb-3">Visite Pediatriche</h3>
+            <div className="p-6 bg-blue-50 card">
+              <h3 className="text-xl font-bold text-gray-900 mb-3">Visite oculistiche pediatriche</h3>
               <p className="text-gray-600 mb-4">Screening visivo e cura per i più piccoli.</p>
               <Link to="/oculista-pediatrico-bologna" className="text-blue-600 font-semibold flex items-center justify-center hover:underline">
                 Scopri di più <ArrowRight className="w-4 h-4 ml-1" />
               </Link>
             </div>
-            <div className="p-6 bg-blue-50 rounded-xl hover:shadow-lg transition-shadow">
-              <h3 className="text-xl font-bold text-gray-900 mb-3">Diagnostica</h3>
+            <div className="p-6 bg-blue-50 card">
+              <h3 className="text-xl font-bold text-gray-900 mb-3">Diagnostica oculistica</h3>
               <p className="text-gray-600 mb-4">Tecnologie avanzate per esami approfonditi.</p>
               <Link to="/servizi" className="text-blue-600 font-semibold flex items-center justify-center hover:underline">
                 Scopri di più <ArrowRight className="w-4 h-4 ml-1" />
@@ -97,7 +113,7 @@ export default function Home() {
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-50 to-blue-50">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Dove visita a Bologna</h2>
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Dove ricevo a Bologna</h2>
             <div className="w-24 h-1 bg-blue-600 mx-auto"></div>
           </div>
 

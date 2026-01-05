@@ -11,7 +11,7 @@ export default function Servizi() {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-            <div className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-shadow border border-gray-100">
+            <div className="bg-white p-8 card border border-gray-100">
               <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-6">
                 <Users className="w-8 h-8 text-blue-600" />
               </div>
@@ -21,7 +21,7 @@ export default function Servizi() {
               </p>
             </div>
 
-            <div className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-shadow border border-gray-100">
+            <div className="bg-white p-8 card border border-gray-100">
               <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-6">
                 <Eye className="w-8 h-8 text-blue-600" />
               </div>
@@ -31,7 +31,7 @@ export default function Servizi() {
               </p>
             </div>
 
-            <div className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-shadow border border-gray-100">
+            <div className="bg-white p-8 card border border-gray-100">
               <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-6">
                 <ScanEye className="w-8 h-8 text-blue-600" />
               </div>
@@ -64,7 +64,8 @@ export default function Servizi() {
             </div>
           </div>
 
-          <div className="bg-white p-8 rounded-2xl shadow-lg">
+          
+          <div className="bg-white p-8 card">
             <h3 className="text-3xl font-bold text-gray-900 mb-6 text-center">Patologie Trattate</h3>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
               {[
@@ -112,7 +113,7 @@ export default function Servizi() {
                   ].map((item, index) => (
                     <tr key={index} className={`${index % 2 === 0 ? 'bg-white' : 'bg-blue-50'} hover:bg-blue-100 transition-colors`}>
                       <td className="px-6 py-4 text-gray-800 font-medium">{item.service}</td>
-                      <td className="px-6 py-4 text-right text-blue-600 font-bold text-lg">{item.price}</td>
+                      <td className="px-6 py-4 text-right text-lg price">{item.price}</td>
                     </tr>
                   ))}
                 </tbody>
