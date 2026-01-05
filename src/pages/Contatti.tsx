@@ -82,6 +82,15 @@ export default function Contatti() {
                     <p className="font-semibold text-gray-900 mb-1">Indirizzo</p>
                     <p className="text-gray-700">Ospedale Maggiore di Bologna</p>
                     <p className="text-gray-700">Largo Bartolo Nigrisoli, Bologna</p>
+                    <a 
+                      href="https://www.google.com/maps/search/?api=1&query=Ospedale+Maggiore+Largo+Bartolo+Nigrisoli+Bologna"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center mt-2 text-sm font-medium text-blue-600 hover:text-blue-800 transition-colors"
+                    >
+                      <MapPin className="w-4 h-4 mr-1" />
+                      Vedi su Google Maps
+                    </a>
                   </div>
                 </div>
               </div>

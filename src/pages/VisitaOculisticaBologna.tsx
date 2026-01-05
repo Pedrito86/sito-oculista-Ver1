@@ -51,6 +51,17 @@ export default function VisitaOculisticaBologna() {
               <p>
                 Le visite si svolgono presso l'<strong>Ospedale Maggiore di Bologna</strong>, Largo Bartolo Nigrisoli, una struttura d'eccellenza facilmente raggiungibile.
               </p>
+              <div className="mt-4">
+                <a 
+                  href="https://www.google.com/maps/search/?api=1&query=Ospedale+Maggiore+Largo+Bartolo+Nigrisoli+Bologna"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center px-4 py-2 bg-white text-blue-600 border border-blue-200 rounded-lg text-sm font-medium hover:bg-blue-50 hover:border-blue-300 transition-colors shadow-sm"
+                >
+                  <MapPin className="w-4 h-4 mr-2" />
+                  Indicazioni stradali su Google Maps
+                </a>
+              </div>
             </div>
 
             <div className="mt-12 text-center">

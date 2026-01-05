@@ -6,7 +6,7 @@ export default function ChiSono() {
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Chi Sono</h2>
+            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Dott.ssa Maria Di Sanzo – Oculista a Bologna</h1>
             <div className="w-24 h-1 bg-blue-600 mx-auto"></div>
           </div>
 
@@ -28,13 +28,20 @@ export default function ChiSono() {
                 </div>
                 
                 <p className="text-gray-700 leading-relaxed mb-6">
-                  Sono un medico chirurgo specialista in Oftalmologia, laureata con lode presso l'Università di Bologna e specializzata con lode all'Università degli Studi di Ferrara.
+                  Sono la Dott.ssa Maria Di Sanzo, medico chirurgo specialista in Oftalmologia. 
+                  Svolgo la mia attività come oculista a Bologna presso l’AUSL di Bologna, 
+                  occupandomi della prevenzione, diagnosi e cura delle principali patologie dell’occhio.
                 </p>
                 <p className="text-gray-700 leading-relaxed mb-6">
-                  Svolgo attività ambulatoriale e diagnostica presso l'AUSL di Bologna, dove seguo pazienti adulti e pediatrici con un approccio attento, moderno e personalizzato.
+                  Eseguo visite oculistiche per adulti e bambini, con particolare attenzione alla salute visiva 
+                  in ogni fase della vita, dalla prima infanzia all’età adulta. 
+                  Il mio approccio si basa su ascolto, chiarezza e accuratezza diagnostica, 
+                  per accompagnare il paziente con serenità durante la visita.
                 </p>
                 <p className="text-gray-700 leading-relaxed">
-                  Credo in una medicina basata sull’ascolto, sulla precisione diagnostica e su un rapporto di fiducia con il paziente.
+                  Opero all’interno di una struttura pubblica, collaborando con un’équipe multidisciplinare 
+                  e utilizzando strumentazioni diagnostiche aggiornate, nel rispetto delle linee guida 
+                  e degli standard clinici.
                 </p>
               </div>
             </div>
@@ -43,17 +50,18 @@ export default function ChiSono() {
               <div className="bg-blue-50 p-6 rounded-xl">
                 <div className="flex items-center space-x-3 mb-4">
                   <Award className="w-8 h-8 text-blue-600" />
-                  <h4 className="text-2xl font-bold text-gray-900">Formazione</h4>
+                  <h2 className="text-2xl font-bold text-gray-900">Formazione e attività professionale</h2>
                 </div>
-                <div className="space-y-4">
-                  <div className="flex items-start space-x-3">
-                    <CheckCircle className="w-5 h-5 text-blue-600 mt-1 flex-shrink-0" />
-                    <p className="text-gray-700"><span className="font-semibold">Laurea in Medicina e Chirurgia</span> – 110/110 e lode, Università di Bologna</p>
-                  </div>
-                  <div className="flex items-start space-x-3">
-                    <CheckCircle className="w-5 h-5 text-blue-600 mt-1 flex-shrink-0" />
-                    <p className="text-gray-700"><span className="font-semibold">Specializzazione in Oftalmologia</span> – 110/110 e lode, Università di Ferrara</p>
-                  </div>
+                <div className="space-y-4 text-gray-700 leading-relaxed">
+                  <p>
+                    Dopo la laurea in Medicina e Chirurgia, ho conseguito la specializzazione in Oftalmologia, 
+                    approfondendo in particolare la diagnosi e il trattamento delle patologie oculari 
+                    in ambito pediatrico e dell’adulto.
+                  </p>
+                  <p>
+                    Svolgo attività clinica presso l’Ospedale Maggiore – AUSL Bologna, 
+                    dove mi occupo di visite oculistiche, controlli specialistici e follow-up.
+                  </p>
                 </div>
               </div>
 
