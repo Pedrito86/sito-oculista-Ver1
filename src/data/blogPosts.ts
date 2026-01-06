@@ -24,7 +24,7 @@ export const BLOG_POSTS = [
     author: "Dott.ssa Maria Di Sanzo",
     readTime: "5 min",
     category: "Pediatria",
-    image: "/oculista-bologna-di-sanzo.jpg"
+    image: "/prevenzione-bambini.jpg"
   },
   {
     id: 2,
@@ -50,7 +50,7 @@ export const BLOG_POSTS = [
     author: "Dott.ssa Maria Di Sanzo",
     readTime: "4 min",
     category: "Patologie",
-    image: "/ospedale-maggiore.jpeg"
+    image: "/glaucoma-occhio.jpg"
   },
   {
     id: 3,
@@ -75,6 +75,6 @@ export const BLOG_POSTS = [
     author: "Dott.ssa Maria Di Sanzo",
     readTime: "3 min",
     category: "Consigli",
-    image: "/oculista-bologna-di-sanzo.jpg"
+    image: "/affaticamento-visivo.jpg"
   }
 ];

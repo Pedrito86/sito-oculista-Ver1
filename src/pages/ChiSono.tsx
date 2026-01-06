@@ -1,4 +1,4 @@
-import { Award, CheckCircle, Users } from 'lucide-react';
+import { Award, Users, BookOpen } from 'lucide-react';
 import { Helmet } from 'react-helmet-async';
 
 export default function ChiSono() {
@@ -66,26 +66,22 @@ export default function ChiSono() {
                     />
                   </div>
                   <div className="text-center md:text-left">
-                    <h3 className="text-3xl font-bold text-gray-900 mb-2">Dott.ssa Maria Di Sanzo</h3>
+                    <h2 className="text-3xl font-bold text-gray-900 mb-2">Dott.ssa Maria Di Sanzo</h2>
                     <p className="text-blue-600 font-medium">Medico Chirurgo Specialista in Oftalmologia</p>
                   </div>
                 </div>
                 
                 <p className="text-gray-700 leading-relaxed mb-6">
-                  Sono la Dott.ssa Maria Di Sanzo, medico chirurgo specialista in Oftalmologia. 
-                  Svolgo la mia attività come oculista a Bologna presso l’AUSL di Bologna, 
-                  occupandomi della prevenzione, diagnosi e cura delle principali patologie dell’occhio.
+                  Sono la Dott.ssa Maria Di Sanzo, medico chirurgo specialista in Oftalmologia. Svolgo la mia attività come oculista a Bologna presso l’AUSL di Bologna, dove mi occupo della prevenzione, diagnosi e cura delle principali patologie dell’occhio, seguendo pazienti adulti e pediatrici all’interno di una struttura pubblica qualificata.
                 </p>
                 <p className="text-gray-700 leading-relaxed mb-6">
-                  Eseguo visite oculistiche per adulti e bambini, con particolare attenzione alla salute visiva 
-                  in ogni fase della vita, dalla prima infanzia all’età adulta. 
-                  Il mio approccio si basa su ascolto, chiarezza e accuratezza diagnostica, 
-                  per accompagnare il paziente con serenità durante la visita.
+                  Nel corso della mia attività clinica eseguo visite oculistiche a Bologna per adulti e bambini, ponendo particolare attenzione alla salute visiva in ogni fase della vita, dalla prima infanzia all’età adulta. La valutazione oculistica accurata rappresenta uno strumento fondamentale per la prevenzione e per l’individuazione precoce delle patologie oculari, consentendo percorsi diagnostici e terapeutici personalizzati.
+                </p>
+                <p className="text-gray-700 leading-relaxed mb-6">
+                  Il mio approccio come oculista a Bologna si basa su ascolto, chiarezza e precisione diagnostica. Ritengo essenziale instaurare un rapporto di fiducia con il paziente, fornendo spiegazioni semplici e comprensibili, così da accompagnarlo con serenità durante la visita oculistica e nel successivo percorso di cura.
                 </p>
                 <p className="text-gray-700 leading-relaxed">
-                  Opero all’interno di una struttura pubblica, collaborando con un’équipe multidisciplinare 
-                  e utilizzando strumentazioni diagnostiche aggiornate, nel rispetto delle linee guida 
-                  e degli standard clinici.
+                  Opero presso l’AUSL di Bologna collaborando con un’équipe multidisciplinare e utilizzando strumentazioni diagnostiche aggiornate, nel rispetto delle linee guida cliniche e degli standard di qualità. L’obiettivo è garantire un’assistenza oculistica basata su evidenze scientifiche, sicurezza e attenzione alla persona.
                 </p>
               </div>
             </div>
@@ -106,6 +102,31 @@ export default function ChiSono() {
                     Svolgo attività clinica presso l’Ospedale Maggiore – AUSL Bologna, 
                     dove mi occupo di visite oculistiche, controlli specialistici e follow-up.
                   </p>
+                </div>
+              </div>
+
+              <div className="bg-white border border-blue-100 p-6 rounded-xl shadow-sm">
+                <div className="flex items-center space-x-3 mb-4">
+                  <BookOpen className="w-8 h-8 text-blue-600" />
+                  <h2 className="text-2xl font-bold text-gray-900">Pubblicazioni scientifiche</h2>
+                </div>
+                <div className="space-y-4 text-gray-700 leading-relaxed">
+                  <p>
+                    La Dott.ssa Maria Di Sanzo è autrice di pubblicazioni scientifiche in ambito oftalmologico, a conferma di un costante impegno nell’aggiornamento professionale e nella ricerca clinica.
+                  </p>
+                  <p>
+                    L’attività scientifica affianca la pratica clinica quotidiana e contribuisce a garantire un approccio basato su evidenze scientifiche nella diagnosi e nel trattamento delle patologie oculari, sia in età pediatrica che adulta.
+                  </p>
+                  <div className="pt-2">
+                    <a 
+                      href="https://www.researchgate.net/profile/Maria-Di-Sanzo" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:text-blue-800 font-medium underline flex items-center"
+                    >
+                      Profilo ResearchGate – Pubblicazioni scientifiche della Dott.ssa Maria Di Sanzo
+                    </a>
+                  </div>
                 </div>
               </div>
 
