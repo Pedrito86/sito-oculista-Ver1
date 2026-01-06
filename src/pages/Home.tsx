@@ -11,6 +11,53 @@ export default function Home() {
           name="description" 
           content="Oculista a Bologna presso AUSL. Visite oculistiche per adulti e bambini. Cura e prevenzione della vista. Prenota una visita." 
         />
+        {/* Open Graph Tags */}
+        <meta property="og:title" content="Oculista a Bologna | Dott.ssa Maria Di Sanzo" />
+        <meta property="og:description" content="Visite oculistiche specialistiche per adulti e bambini a Bologna. Prenota il tuo appuntamento." />
+        <meta property="og:image" content="https://www.oculistadisanzo.it/oculista-bologna-di-sanzo.jpg" />
+        <meta property="og:url" content="https://www.oculistadisanzo.it/" />
+        <meta property="og:type" content="website" />
+        
+        {/* Structured Data (JSON-LD) */}
+        <script type="application/ld+json">
+          {`
+            {
+              "@context": "https://schema.org",
+              "@type": "Physician",
+              "name": "Dott.ssa Maria Di Sanzo",
+              "image": "https://www.oculistadisanzo.it/oculista-bologna-di-sanzo.jpg",
+              "@id": "https://www.oculistadisanzo.it",
+              "url": "https://www.oculistadisanzo.it",
+              "telephone": "+393470700989",
+              "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "Largo Bartolo Nigrisoli",
+                "addressLocality": "Bologna",
+                "postalCode": "40133",
+                "addressCountry": "IT"
+              },
+              "geo": {
+                "@type": "GeoCoordinates",
+                "latitude": 44.5009,
+                "longitude": 11.3175
+              },
+              "medicalSpecialty": "Ophthalmology",
+              "priceRange": "$$",
+              "openingHoursSpecification": {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": [
+                  "Monday",
+                  "Tuesday",
+                  "Wednesday",
+                  "Thursday",
+                  "Friday"
+                ],
+                "opens": "09:00",
+                "closes": "18:00"
+              }
+            }
+          `}
+        </script>
       </Helmet>
       <section id="home" className="pt-12 pb-20 px-4 sm:px-6 lg:px-8" style={{ background: 'linear-gradient(135deg, #f5f9ff, #ffffff)' }}>
         <div className="max-w-7xl mx-auto">

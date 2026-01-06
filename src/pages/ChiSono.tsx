@@ -1,8 +1,50 @@
 import { Award, CheckCircle, Users } from 'lucide-react';
+import { Helmet } from 'react-helmet-async';
 
 export default function ChiSono() {
   return (
     <div className="pt-20">
+      <Helmet>
+        <title>Chi Sono | Dott.ssa Maria Di Sanzo – Oculista a Bologna</title>
+        <meta 
+          name="description" 
+          content="Scopri di più sulla Dott.ssa Maria Di Sanzo, medico chirurgo specialista in Oftalmologia presso l'AUSL di Bologna. Formazione, esperienza e approccio clinico." 
+        />
+        {/* Open Graph Tags */}
+        <meta property="og:title" content="Chi Sono | Dott.ssa Maria Di Sanzo – Oculista a Bologna" />
+        <meta property="og:description" content="Medico chirurgo specialista in Oftalmologia. Visite per adulti e bambini presso AUSL Bologna." />
+        <meta property="og:image" content="https://www.oculistadisanzo.it/oculista-bologna-di-sanzo.jpg" />
+        <meta property="og:url" content="https://www.oculistadisanzo.it/chi-sono" />
+        <meta property="og:type" content="profile" />
+        
+        {/* Structured Data (JSON-LD) */}
+        <script type="application/ld+json">
+          {`
+            {
+              "@context": "https://schema.org",
+              "@type": "Physician",
+              "name": "Dott.ssa Maria Di Sanzo",
+              "image": "https://www.oculistadisanzo.it/oculista-bologna-di-sanzo.jpg",
+              "@id": "https://www.oculistadisanzo.it/chi-sono",
+              "url": "https://www.oculistadisanzo.it/chi-sono",
+              "telephone": "+393470700989",
+              "jobTitle": "Oculista",
+              "worksFor": {
+                "@type": "MedicalOrganization",
+                "name": "AUSL Bologna"
+              },
+              "description": "Medico chirurgo specialista in Oftalmologia presso AUSL Bologna.",
+              "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "Largo Bartolo Nigrisoli",
+                "addressLocality": "Bologna",
+                "postalCode": "40133",
+                "addressCountry": "IT"
+              }
+            }
+          `}
+        </script>
+      </Helmet>
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">

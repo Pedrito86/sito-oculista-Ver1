@@ -1,9 +1,44 @@
 import { Link } from 'react-router-dom';
 import { CheckCircle, Calendar, Heart } from 'lucide-react';
+import { Helmet } from 'react-helmet-async';
 
 export default function OculistaPediatricoBologna() {
   return (
     <div className="pt-20">
+      <Helmet>
+        <title>Oculista Pediatrico Bologna | Visite per Bambini – Dott.ssa Di Sanzo</title>
+        <meta 
+          name="description" 
+          content="Visite oculistiche pediatriche a Bologna con la Dott.ssa Maria Di Sanzo. Screening visivo neonatale, cura di ambliopia, strabismo e difetti visivi nei bambini." 
+        />
+        {/* Open Graph Tags */}
+        <meta property="og:title" content="Oculista Pediatrico Bologna | Visite per Bambini" />
+        <meta property="og:description" content="Screening visivo neonatale, diagnosi e cura di ambliopia e strabismo a Bologna." />
+        <meta property="og:image" content="https://www.oculistadisanzo.it/oculista-bologna-di-sanzo.jpg" />
+        <meta property="og:url" content="https://www.oculistadisanzo.it/oculista-pediatrico-bologna" />
+        <meta property="og:type" content="website" />
+        
+        {/* Structured Data (JSON-LD) */}
+        <script type="application/ld+json">
+          {`
+            {
+              "@context": "https://schema.org",
+              "@type": "MedicalSpecialty",
+              "name": "Oculistica Pediatrica",
+              "description": "Visite oculistiche per neonati, bambini e adolescenti.",
+              "medicalSpecialty": "Pediatric",
+              "practitioner": {
+                "@type": "Physician",
+                "name": "Dott.ssa Maria Di Sanzo"
+              },
+              "availableService": {
+                "@type": "MedicalProcedure",
+                "name": "Screening visivo pediatrico"
+              }
+            }
+          `}
+        </script>
+      </Helmet>
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">

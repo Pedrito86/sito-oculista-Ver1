@@ -1,9 +1,50 @@
 import { Link } from 'react-router-dom';
 import { CheckCircle, MapPin, Calendar } from 'lucide-react';
+import { Helmet } from 'react-helmet-async';
 
 export default function VisitaOculisticaBologna() {
   return (
     <div className="pt-20">
+      <Helmet>
+        <title>Visita Oculistica Bologna Completa | Dott.ssa Maria Di Sanzo</title>
+        <meta 
+          name="description" 
+          content="Prenota una visita oculistica completa a Bologna con la Dott.ssa Maria Di Sanzo. Esami della vista, tonometria e fondo oculare presso l'Ospedale Maggiore." 
+        />
+        {/* Open Graph Tags */}
+        <meta property="og:title" content="Visita Oculistica Bologna Completa | Dott.ssa Maria Di Sanzo" />
+        <meta property="og:description" content="Controllo completo della vista, tonometria e fondo oculare a Bologna." />
+        <meta property="og:image" content="https://www.oculistadisanzo.it/oculista-bologna-di-sanzo.jpg" />
+        <meta property="og:url" content="https://www.oculistadisanzo.it/visita-oculistica-bologna" />
+        <meta property="og:type" content="website" />
+        
+        {/* Structured Data (JSON-LD) */}
+        <script type="application/ld+json">
+          {`
+            {
+              "@context": "https://schema.org",
+              "@type": "MedicalProcedure",
+              "name": "Visita Oculistica Completa",
+              "description": "Visita oculistica specialistica comprensiva di esame della vista, tonometria e fondo oculare.",
+              "performer": {
+                "@type": "Physician",
+                "name": "Dott.ssa Maria Di Sanzo"
+              },
+              "location": {
+                "@type": "Hospital",
+                "name": "Ospedale Maggiore di Bologna",
+                "address": {
+                  "@type": "PostalAddress",
+                  "streetAddress": "Largo Bartolo Nigrisoli",
+                  "addressLocality": "Bologna",
+                  "postalCode": "40133",
+                  "addressCountry": "IT"
+                }
+              }
+            }
+          `}
+        </script>
+      </Helmet>
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">

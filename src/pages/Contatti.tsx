@@ -2,6 +2,7 @@ import { Phone, Mail, MapPin, Calendar, Loader2, CheckCircle, AlertCircle } from
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import emailjs from '@emailjs/browser';
+import { Helmet } from 'react-helmet-async';
 import { EMAIL_CONFIG } from '../config/email';
 
 export default function Contatti() {
@@ -48,10 +49,46 @@ export default function Contatti() {
 
   return (
     <div className="pt-20">
+      <Helmet>
+        <title>Contatti e Prenotazioni | Oculista Bologna Dott.ssa Di Sanzo</title>
+        <meta 
+          name="description" 
+          content="Contatta la Dott.ssa Maria Di Sanzo per prenotare una visita oculistica a Bologna. Telefono, email e indicazioni per l'Ospedale Maggiore." 
+        />
+        {/* Open Graph Tags */}
+        <meta property="og:title" content="Contatti e Prenotazioni | Oculista Bologna" />
+        <meta property="og:description" content="Prenota la tua visita oculistica presso l'Ospedale Maggiore di Bologna. Contatti e indicazioni." />
+        <meta property="og:image" content="https://www.oculistadisanzo.it/oculista-bologna-di-sanzo.jpg" />
+        <meta property="og:url" content="https://www.oculistadisanzo.it/contatti" />
+        <meta property="og:type" content="website" />
+        
+        {/* Structured Data (JSON-LD) */}
+        <script type="application/ld+json">
+          {`
+            {
+              "@context": "https://schema.org",
+              "@type": "ContactPage",
+              "mainEntity": {
+                "@type": "Physician",
+                "name": "Dott.ssa Maria Di Sanzo",
+                "telephone": "+393470700989",
+                "email": "mariadisanzo@gmail.com",
+                "address": {
+                  "@type": "PostalAddress",
+                  "streetAddress": "Largo Bartolo Nigrisoli",
+                  "addressLocality": "Bologna",
+                  "postalCode": "40133",
+                  "addressCountry": "IT"
+                }
+              }
+            }
+          `}
+        </script>
+      </Helmet>
       <section id="contatti" className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Contatti & Prenotazioni</h2>
+            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Contatti & Prenotazioni</h1>
             <div className="w-24 h-1 bg-blue-600 mx-auto"></div>
           </div>
 

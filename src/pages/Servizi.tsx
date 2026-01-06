@@ -1,12 +1,39 @@
 import { Users, Eye, ScanEye, CheckCircle } from 'lucide-react';
+import { Helmet } from 'react-helmet-async';
 
 export default function Servizi() {
   return (
     <div className="pt-20">
+      <Helmet>
+        <title>Servizi Oculistici Bologna | Visite ed Esami – Dott.ssa Di Sanzo</title>
+        <meta 
+          name="description" 
+          content="Scopri i servizi oculistici della Dott.ssa Maria Di Sanzo a Bologna. Visite per adulti e bambini, esami diagnostici (OCT, Campo Visivo), screening glaucoma e altro." 
+        />
+        {/* Open Graph Tags */}
+        <meta property="og:title" content="Servizi Oculistici Bologna | Dott.ssa Di Sanzo" />
+        <meta property="og:description" content="Visite oculistiche complete, OCT, esame del fondo oculare e tonometria a Bologna." />
+        <meta property="og:image" content="https://www.oculistadisanzo.it/oculista-bologna-di-sanzo.jpg" />
+        <meta property="og:url" content="https://www.oculistadisanzo.it/servizi" />
+        <meta property="og:type" content="website" />
+        
+        {/* Structured Data (JSON-LD) */}
+        <script type="application/ld+json">
+          {`
+            {
+              "@context": "https://schema.org",
+              "@type": "MedicalWebPage",
+              "name": "Servizi Oculistici",
+              "description": "Elenco dei servizi oculistici offerti: visite, esami diagnostici, screening.",
+              "medicalAudience": "Patients"
+            }
+          `}
+        </script>
+      </Helmet>
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-50 to-blue-50">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Servizi</h2>
+            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Servizi di Oculistica</h1>
             <div className="w-24 h-1 bg-blue-600 mx-auto"></div>
           </div>
 
@@ -15,7 +42,7 @@ export default function Servizi() {
               <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-6">
                 <Users className="w-8 h-8 text-blue-600" />
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">Visite Oculistiche per Adulti</h3>
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">Visite Oculistiche per Adulti</h2>
               <p className="text-gray-600 leading-relaxed">
                 Controllo completo della vista, diagnosi dei difetti visivi e monitoraggio delle principali patologie oculari.
               </p>
@@ -25,7 +52,7 @@ export default function Servizi() {
               <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-6">
                 <Eye className="w-8 h-8 text-blue-600" />
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">Visite Oculistiche Pediatriche</h3>
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">Visite Oculistiche Pediatriche</h2>
               <p className="text-gray-600 leading-relaxed">
                 Screening visivo per neonati, bambini e adolescenti. Individuazione precoce di problemi visivi.
               </p>
@@ -35,7 +62,7 @@ export default function Servizi() {
               <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-6">
                 <ScanEye className="w-8 h-8 text-blue-600" />
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">Esami Diagnostici</h3>
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">Esami Diagnostici</h2>
               <p className="text-gray-600 leading-relaxed mb-4">
                 Disponibili tecnologie avanzate per una valutazione approfondita:
               </p>
@@ -66,7 +93,7 @@ export default function Servizi() {
 
           
           <div className="bg-white p-8 card">
-            <h3 className="text-3xl font-bold text-gray-900 mb-6 text-center">Patologie Trattate</h3>
+            <h2 className="text-3xl font-bold text-gray-900 mb-6 text-center">Patologie Trattate</h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
               {[
                 'Miopia, ipermetropia, astigmatismo',
