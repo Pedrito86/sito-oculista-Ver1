@@ -8,6 +8,8 @@ import Servizi from './pages/Servizi';
 import VisitaOculisticaBologna from './pages/VisitaOculisticaBologna';
 import OculistaPediatricoBologna from './pages/OculistaPediatricoBologna';
 import Contatti from './pages/Contatti';
+import Blog from './pages/Blog';
+import BlogPost from './pages/BlogPost';
 import Prenotazione from './pages/Prenotazione';
 import Cancellazione from './pages/Cancellazione';
 import PrivacyPolicy from './pages/PrivacyPolicy';
@@ -39,6 +41,8 @@ function App() {
           <Route path="/visita-oculistica-bologna" element={<VisitaOculisticaBologna />} />
           <Route path="/oculista-pediatrico-bologna" element={<OculistaPediatricoBologna />} />
           <Route path="/contatti" element={<Contatti />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:slug" element={<BlogPost />} />
           <Route path="/prenotazione" element={<Prenotazione />} />
           <Route path="/cancella-prenotazione" element={<Cancellazione />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />

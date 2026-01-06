@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { ChevronLeft, ChevronRight, Calendar as CalendarIcon, CheckCircle, Loader2, CalendarPlus } from 'lucide-react';
 import emailjs from '@emailjs/browser';
 import { EMAIL_CONFIG } from '../config/email';
@@ -289,6 +290,20 @@ export default function Prenotazione() {
 
   return (
     <div className="pt-24 pb-20 px-4 sm:px-6 lg:px-8 bg-gray-50 min-h-screen">
+      <Helmet>
+        <title>Prenota una Visita Oculistica | Dott.ssa Maria Di Sanzo</title>
+        <meta 
+          name="description" 
+          content="Prenota online visita oculistica a Bologna con Dott.ssa Di Sanzo. Scegli data e orario dal calendario." 
+        />
+        <link rel="canonical" href="https://www.oculistadisanzo.it/prenotazione" />
+        {/* Open Graph Tags */}
+        <meta property="og:title" content="Prenota una Visita Oculistica | Dott.ssa Maria Di Sanzo" />
+        <meta property="og:description" content="Prenota online la tua visita oculistica a Bologna. Scegli data e orario." />
+        <meta property="og:image" content="https://www.oculistadisanzo.it/oculista-bologna-di-sanzo.jpg" />
+        <meta property="og:url" content="https://www.oculistadisanzo.it/prenotazione" />
+        <meta property="og:type" content="website" />
+      </Helmet>
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">Prenota la tua Visita</h1>

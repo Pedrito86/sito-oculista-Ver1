@@ -11,6 +11,8 @@ export default function Home() {
           name="description" 
           content="Oculista a Bologna presso AUSL. Visite oculistiche per adulti e bambini. Cura e prevenzione della vista. Prenota una visita." 
         />
+        <link rel="canonical" href="https://www.oculistadisanzo.it/" />
+        <link rel="alternate" hrefLang="it" href="https://www.oculistadisanzo.it/" />
         {/* Open Graph Tags */}
         <meta property="og:title" content="Oculista a Bologna | Dott.ssa Maria Di Sanzo" />
         <meta property="og:description" content="Visite oculistiche specialistiche per adulti e bambini a Bologna. Prenota il tuo appuntamento." />
@@ -59,18 +61,18 @@ export default function Home() {
           `}
         </script>
       </Helmet>
-      <section id="home" className="pt-12 pb-20 px-4 sm:px-6 lg:px-8" style={{ background: 'linear-gradient(135deg, #f5f9ff, #ffffff)' }}>
+      <section id="home" className="pt-16 pb-16 md:pt-12 md:pb-20 px-4 sm:px-6 lg:px-8" style={{ background: 'linear-gradient(135deg, #f5f9ff, #ffffff)' }}>
         <div className="max-w-7xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div>
-              <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
-                Oculista a Bologna per la cura e la prevenzione della vista
+          <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+            <div className="order-2 md:order-1">
+              <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-2 leading-tight">
+                Dott.ssa Maria Di Sanzo
               </h1>
-              <p className="text-2xl text-blue-600 font-semibold mb-2">
-                Oculista per adulti e bambini – AUSL Bologna
+              <p className="text-2xl text-blue-600 font-semibold mb-6">
+                Oculista a Bologna per la cura e la prevenzione della vista
               </p>
               <p className="text-xl text-gray-800 font-medium mb-6">
-                Dott.ssa Maria Di Sanzo
+                Specialista per adulti e bambini – AUSL Bologna
               </p>
               <p className="text-lg text-gray-600 mb-8 leading-relaxed">
                 La Dott.ssa Maria Di Sanzo è oculista a Bologna e svolge la propria attività presso l’AUSL di Bologna, occupandosi della prevenzione, diagnosi e cura delle principali patologie oculari. Esegue visite oculistiche per adulti e bambini, con particolare attenzione alla salute visiva in ogni fase della vita.
@@ -115,7 +117,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="relative flex justify-center">
+            <div className="relative flex justify-center order-1 md:order-2">
               <div className="relative w-full max-w-md bg-gradient-to-br from-blue-100 to-blue-200 rounded-3xl overflow-hidden shadow-2xl">
                 <img
                   src="/oculista-bologna-di-sanzo.jpg"
@@ -131,6 +133,7 @@ export default function Home() {
 
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
         <div className="max-w-7xl mx-auto">
+          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">I Nostri Servizi</h2>
           <div className="grid md:grid-cols-3 gap-8 text-center">
             <div className="p-6 bg-blue-50 card">
               <h3 className="text-xl font-bold text-gray-900 mb-3">Visite oculistiche per adulti</h3>

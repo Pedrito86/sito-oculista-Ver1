@@ -14,7 +14,7 @@ export default function Navbar() {
     `transition-colors font-medium ${isActive(path) ? 'text-blue-600' : 'text-gray-700 hover:text-blue-600'}`;
 
   const getMobileLinkClass = (path: string) => 
-    `block w-full text-left py-2 font-medium ${isActive(path) ? 'text-blue-600' : 'text-gray-700 hover:text-blue-600'}`;
+    `block w-full text-left py-4 px-2 font-medium border-b border-gray-100 ${isActive(path) ? 'text-blue-600 bg-blue-50' : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'}`;
 
   return (
     <nav className="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-sm shadow-md z-50">
@@ -40,6 +40,7 @@ export default function Navbar() {
             <Link to="/servizi" className={getLinkClass('/servizi')}>Servizi</Link>
             <Link to="/visita-oculistica-bologna" className={getLinkClass('/visita-oculistica-bologna')}>Visita Oculistica</Link>
             <Link to="/oculista-pediatrico-bologna" className={getLinkClass('/oculista-pediatrico-bologna')}>Oculista Pediatrico</Link>
+            <Link to="/blog" className={getLinkClass('/blog')}>Blog</Link>
             <Link to="/contatti" className={getLinkClass('/contatti')}>Contatti</Link>
           </div>
 
@@ -60,6 +61,7 @@ export default function Navbar() {
             <Link to="/servizi" onClick={closeMenu} className={getMobileLinkClass('/servizi')}>Servizi</Link>
             <Link to="/visita-oculistica-bologna" onClick={closeMenu} className={getMobileLinkClass('/visita-oculistica-bologna')}>Visita Oculistica Bologna</Link>
             <Link to="/oculista-pediatrico-bologna" onClick={closeMenu} className={getMobileLinkClass('/oculista-pediatrico-bologna')}>Oculista Pediatrico Bologna</Link>
+            <Link to="/blog" onClick={closeMenu} className={getMobileLinkClass('/blog')}>Blog</Link>
             <Link to="/contatti" onClick={closeMenu} className={getMobileLinkClass('/contatti')}>Contatti</Link>
           </div>
         </div>

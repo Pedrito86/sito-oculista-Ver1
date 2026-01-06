@@ -8,8 +8,10 @@ export default function ChiSono() {
         <title>Chi Sono | Dott.ssa Maria Di Sanzo – Oculista a Bologna</title>
         <meta 
           name="description" 
-          content="Scopri di più sulla Dott.ssa Maria Di Sanzo, medico chirurgo specialista in Oftalmologia presso l'AUSL di Bologna. Formazione, esperienza e approccio clinico." 
+          content="Dott.ssa Maria Di Sanzo, oculista AUSL Bologna. Specialista in Oftalmologia: esperienza e approccio clinico per adulti e bambini." 
         />
+        <link rel="canonical" href="https://www.oculistadisanzo.it/chi-sono" />
+        <link rel="alternate" hrefLang="it" href="https://www.oculistadisanzo.it/chi-sono" />
         {/* Open Graph Tags */}
         <meta property="og:title" content="Chi Sono | Dott.ssa Maria Di Sanzo – Oculista a Bologna" />
         <meta property="og:description" content="Medico chirurgo specialista in Oftalmologia. Visite per adulti e bambini presso AUSL Bologna." />
@@ -110,7 +112,7 @@ export default function ChiSono() {
               <div className="bg-gray-50 p-6 rounded-xl">
                 <div className="flex items-center space-x-3 mb-4">
                   <Users className="w-8 h-8 text-blue-600" />
-                  <h4 className="text-2xl font-bold text-gray-900">Approccio di lavoro</h4>
+                  <h2 className="text-2xl font-bold text-gray-900">Approccio di lavoro</h2>
                 </div>
                 <div className="space-y-3">
                   <div className="flex items-start space-x-3">

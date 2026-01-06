@@ -23,13 +23,14 @@ export default function Footer() {
 
           <div>
             <h4 className="font-bold text-lg mb-4">Link Rapidi</h4>
-            <div className="space-y-2 flex flex-col">
-              <Link to="/chi-sono" className="text-gray-400 hover:text-blue-400 transition-colors">Chi Sono</Link>
-              <Link to="/servizi" className="text-gray-400 hover:text-blue-400 transition-colors">Servizi</Link>
-              <Link to="/visita-oculistica-bologna" className="text-gray-400 hover:text-blue-400 transition-colors">Visita Oculistica Bologna</Link>
-              <Link to="/oculista-pediatrico-bologna" className="text-gray-400 hover:text-blue-400 transition-colors">Oculista Pediatrico Bologna</Link>
-              <Link to="/contatti" className="text-gray-400 hover:text-blue-400 transition-colors">Contatti</Link>
-              <Link to="/privacy-policy" className="text-gray-400 hover:text-blue-400 transition-colors">Privacy & Cookie Policy</Link>
+            <div className="space-y-3 flex flex-col">
+              <Link to="/chi-sono" className="text-gray-400 hover:text-blue-400 transition-colors py-1">Chi Sono</Link>
+              <Link to="/servizi" className="text-gray-400 hover:text-blue-400 transition-colors py-1">Servizi</Link>
+              <Link to="/visita-oculistica-bologna" className="text-gray-400 hover:text-blue-400 transition-colors py-1">Visita Oculistica Bologna</Link>
+              <Link to="/oculista-pediatrico-bologna" className="text-gray-400 hover:text-blue-400 transition-colors py-1">Oculista Pediatrico Bologna</Link>
+              <Link to="/blog" className="text-gray-400 hover:text-blue-400 transition-colors py-1">Blog</Link>
+              <Link to="/contatti" className="text-gray-400 hover:text-blue-400 transition-colors py-1">Contatti</Link>
+              <Link to="/privacy-policy" className="text-gray-400 hover:text-blue-400 transition-colors py-1">Privacy & Cookie Policy</Link>
             </div>
           </div>
 
