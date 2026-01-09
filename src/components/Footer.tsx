@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-900 text-white py-12 px-4 sm:px-6 lg:px-8">
+    <footer className="bg-gray-900 text-white py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <div className="grid md:grid-cols-3 gap-8 mb-8">
           <div>
@@ -21,16 +21,18 @@ export default function Footer() {
             </p>
           </div>
 
-          <div>
-            <h4 className="font-bold text-lg mb-4">Link Rapidi</h4>
-            <div className="space-y-3 flex flex-col">
-              <Link to="/chi-sono" className="text-gray-400 hover:text-blue-400 transition-colors py-1">Chi Sono</Link>
-              <Link to="/servizi" className="text-gray-400 hover:text-blue-400 transition-colors py-1">Servizi</Link>
-              <Link to="/visita-oculistica-bologna" className="text-gray-400 hover:text-blue-400 transition-colors py-1">Visita Oculistica Bologna</Link>
-              <Link to="/oculista-pediatrico-bologna" className="text-gray-400 hover:text-blue-400 transition-colors py-1">Oculista Pediatrico Bologna</Link>
-              <Link to="/blog" className="text-gray-400 hover:text-blue-400 transition-colors py-1">Blog</Link>
-              <Link to="/contatti" className="text-gray-400 hover:text-blue-400 transition-colors py-1">Contatti</Link>
-              <Link to="/privacy-policy" className="text-gray-400 hover:text-blue-400 transition-colors py-1">Privacy & Cookie Policy</Link>
+          <div className="flex flex-col md:items-center">
+            <div>
+              <h4 className="font-bold text-lg mb-4">Link Rapidi</h4>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-2 text-sm">
+                <Link to="/chi-sono" className="text-gray-400 hover:text-blue-400 transition-colors">Chi Sono</Link>
+                <Link to="/servizi" className="text-gray-400 hover:text-blue-400 transition-colors">Servizi</Link>
+                <Link to="/visita-oculistica-bologna" className="text-gray-400 hover:text-blue-400 transition-colors">Visita Oculistica</Link>
+                <Link to="/oculista-pediatrico-bologna" className="text-gray-400 hover:text-blue-400 transition-colors">Oculista Pediatrico</Link>
+                <Link to="/blog" className="text-gray-400 hover:text-blue-400 transition-colors">Blog</Link>
+                <Link to="/contatti" className="text-gray-400 hover:text-blue-400 transition-colors">Contatti</Link>
+                <Link to="/privacy-policy" className="text-gray-400 hover:text-blue-400 transition-colors sm:col-span-2">Privacy & Cookie Policy</Link>
+              </div>
             </div>
           </div>
 
