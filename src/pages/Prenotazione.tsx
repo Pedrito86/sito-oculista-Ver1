@@ -72,6 +72,16 @@ export default function Prenotazione() {
 
   const changeMonth = (offset: number) => {
     const newDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + offset, 1);
+    
+    // Limit navigation to 365 days from today
+    const today = new Date();
+    const maxDate = new Date(today);
+    maxDate.setDate(maxDate.getDate() + 365);
+
+    if (newDate > maxDate) {
+      return;
+    }
+
     setCurrentDate(newDate);
     setSelectedDate(null);
     setSelectedSlot(null);
@@ -321,7 +331,15 @@ export default function Prenotazione() {
               <h2 className="text-xl font-bold text-gray-900">
                 {monthNames[currentDate.getMonth()]} {currentDate.getFullYear()}
               </h2>
-              <button onClick={() => changeMonth(1)} className="p-2 hover:bg-gray-100 rounded-full transition-colors">
+              <button 
+                onClick={() => changeMonth(1)} 
+                disabled={new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1) > new Date(new Date().setDate(new Date().getDate() + 365))}
+                className={`p-2 rounded-full transition-colors ${
+                  new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1) > new Date(new Date().setDate(new Date().getDate() + 365))
+                    ? 'opacity-30 cursor-not-allowed'
+                    : 'hover:bg-gray-100'
+                }`}
+              >
                 <ChevronRight className="w-6 h-6 text-gray-600" />
               </button>
             </div>
