@@ -234,36 +234,29 @@ export default function Cancellazione() {
     const dateStr = selectedDate.toLocaleDateString('en-CA');
 
     try {
-      const { data: clash, error: clashError } = await supabase
-        .from('bookings')
-        .select('id')
-        .eq('date', dateStr)
-        .eq('time', selectedSlot)
-        .eq('status', 'confirmed')
-        .neq('id', booking.id);
+      // Usa la RPC per riprogrammare in modo sicuro e gestire i permessi RLS
+      const { data, error } = await supabase.rpc('reschedule_booking', {
+        token_input: token,
+        new_date: dateStr,
+        new_time: selectedSlot
+      });
 
-      if (clashError) throw clashError;
-      if (clash && clash.length > 0) {
-        throw new Error('Questo orario è stato appena prenotato da un altro utente.');
+      if (error) throw error;
+
+      // Cast del risultato (supabase rpc ritorna any/json)
+      const result = data as { success: boolean; message: string };
+      
+      if (!result.success) {
+        throw new Error(result.message);
       }
 
-      const { data: updated, error: updateError } = await supabase
-        .from('bookings')
-        .update({ date: dateStr, time: selectedSlot })
-        .eq('id', booking.id)
-        .eq('cancellation_token', token)
-        .eq('status', 'confirmed')
-        .select('date, time')
-        .single();
-
-      if (updateError || !updated) throw updateError || new Error('Impossibile riprogrammare la visita.');
-
-      setBooking({ ...booking, date: updated.date, time: updated.time });
+      setBooking({ ...booking, date: dateStr, time: selectedSlot });
       setSelectedDate(null);
       setSelectedSlot(null);
       setOccupiedSlots([]);
       setAction('rescheduled');
     } catch (err) {
+      console.error('Errore riprogrammazione:', err);
       if (err instanceof Error) setActionError(err.message);
       else setActionError('Impossibile riprogrammare la visita. Riprova più tardi.');
       setAction('reschedule');
