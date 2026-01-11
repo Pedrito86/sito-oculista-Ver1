@@ -81,14 +81,6 @@ export default function Servizi() {
                   <CheckCircle className="w-4 h-4 text-blue-600 flex-shrink-0" />
                   <span className="text-gray-700">Tonometria (Pressione oculare)</span>
                 </li>
-                <li className="flex items-center space-x-2">
-                  <CheckCircle className="w-4 h-4 text-blue-600 flex-shrink-0" />
-                  <span className="text-gray-700">Campo visivo computerizzato</span>
-                </li>
-                <li className="flex items-center space-x-2">
-                  <CheckCircle className="w-4 h-4 text-blue-600 flex-shrink-0" />
-                  <span className="text-gray-700">Pachimetria corneale</span>
-                </li>
               </ul>
             </div>
           </div>

@@ -17,6 +17,7 @@ interface Booking {
   created_at: string;
   notes?: string;
   cancellation_token?: string;
+  reminder_sent?: boolean;
 }
 
 export default function AdminDashboard() {
@@ -112,6 +113,31 @@ export default function AdminDashboard() {
 
   const filteredBookings = getFilteredBookings();
   const todayDate = new Date().toISOString().split('T')[0];
+  
+  // Calculate upcoming bookings (smart weekend logic)
+  const today = new Date();
+  const dayOfWeek = today.getDay(); // 0 = Sunday, 1 = Monday, ..., 5 = Friday, 6 = Saturday
+  
+  // Base window is 1 day (tomorrow)
+  let lookaheadDays = 1;
+
+  // If Friday (5), lookahead 3 days (Sat, Sun, Mon)
+  // If Saturday (6), lookahead 2 days (Sun, Mon)
+  // If Sunday (0), lookahead 1 day (Mon) - but usually logic is just "tomorrow"
+  // User request: Mon/Wed visits. 
+  // Mon visits need reminder sent on previous Fri/Sat/Sun.
+  // Wed visits need reminder sent on Tue.
+  
+  if (dayOfWeek === 5) lookaheadDays = 3; // Friday -> Show until Monday
+  if (dayOfWeek === 6) lookaheadDays = 2; // Saturday -> Show until Monday
+  
+  const upcomingBookings = bookings.filter(b => {
+    const bookingDate = new Date(b.date);
+    const diffTime = bookingDate.getTime() - new Date(todayDate).getTime();
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+    return diffDays > 0 && diffDays <= lookaheadDays;
+  });
+
   const todayBookings = bookings.filter(b => b.date === todayDate);
 
   return (
@@ -170,6 +196,7 @@ export default function AdminDashboard() {
             {/* Oggi Card */}
             <TodayOverview 
               bookings={todayBookings} 
+              upcomingBookings={upcomingBookings}
               onUpdate={fetchBookings} 
             />
 

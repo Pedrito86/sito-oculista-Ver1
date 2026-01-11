@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
+import emailjs from '@emailjs/browser';
+import { EMAIL_CONFIG } from '../config/email';
 import { supabase } from '../lib/supabase';
 import { AlertCircle, Calendar as CalendarIcon, CalendarPlus, CheckCircle, ChevronLeft, ChevronRight, Loader2, Trash2, XCircle } from 'lucide-react';
 
@@ -261,6 +263,36 @@ export default function Cancellazione() {
       }
 
       setBooking({ ...booking, date: dateStr, time: selectedSlot });
+      
+      // Invia email di conferma riprogrammazione
+      try {
+        const link = `${window.location.origin}/cancella-prenotazione?token=${token}`;
+        const templateParams = {
+          to_name: 'Dott.ssa Di Sanzo',
+          from_name: booking.name,
+          from_email: booking.email,
+          patient_email: booking.email,
+          to_email: booking.email,
+          reply_to: booking.email,
+          phone: booking.phone,
+          date: selectedDate.toLocaleDateString('it-IT', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }),
+          time: selectedSlot,
+          type: 'Riprogrammazione Visita',
+          cancellation_link: link
+        };
+
+        await emailjs.send(
+          EMAIL_CONFIG.SERVICE_ID,
+          EMAIL_CONFIG.TEMPLATE_ID,
+          templateParams,
+          EMAIL_CONFIG.PUBLIC_KEY
+        );
+        console.log('Email di riprogrammazione inviata con successo');
+      } catch (emailErr) {
+        console.error('Errore invio email riprogrammazione:', emailErr);
+        // Non blocchiamo il flusso se l'email fallisce, ma logghiamo l'errore
+      }
+
       setSelectedDate(null);
       setSelectedSlot(null);
       setOccupiedSlots([]);
