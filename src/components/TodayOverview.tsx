@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { supabase } from '../lib/supabase';
 import emailjs from '@emailjs/browser';
 import { EMAIL_CONFIG } from '../config/email';
@@ -31,6 +31,7 @@ export default function TodayOverview({ bookings, upcomingBookings = [], onUpdat
   const [autoSendEnabled, setAutoSendEnabled] = useState(() => {
     return localStorage.getItem('autoSendReminders') === 'true';
   });
+  const attemptedReminders = useRef<Set<string>>(new Set());
 
   // Filter confirmed bookings for today
   const confirmedBookings = bookings.filter(b => b.status === 'confirmed');
@@ -46,7 +47,11 @@ export default function TodayOverview({ bookings, upcomingBookings = [], onUpdat
 
   // Auto-send effect
   useEffect(() => {
-    const unsentReminders = confirmedUpcomingBookings.filter(b => !b.reminder_sent);
+    // Only consider bookings that are NOT sent AND NOT attempted in this session
+    const unsentReminders = confirmedUpcomingBookings.filter(b => 
+        !b.reminder_sent && !attemptedReminders.current.has(b.id)
+    );
+    
     if (autoSendEnabled && unsentReminders.length > 0 && !isSendingAll && !sendingReminder) {
         const timer = setTimeout(() => {
             handleSendAllReminders(false); // false = no confirm
@@ -83,8 +88,8 @@ export default function TodayOverview({ bookings, upcomingBookings = [], onUpdat
   const sendReminderEmail = async (booking: Booking, isTomorrow: boolean) => {
     try {
         const templateParams = {
-            to_name: booking.name,
-            from_name: 'Dott.ssa Di Sanzo',
+            to_name: 'Dott.ssa Di Sanzo',
+            from_name: booking.name,
             from_email: 'noreply@oculistadisanzo.it',
             to_email: booking.email,
             reply_to: 'info@oculistadisanzo.it',
@@ -130,18 +135,39 @@ export default function TodayOverview({ bookings, upcomingBookings = [], onUpdat
   };
 
   const handleSendAllReminders = async (askConfirm: boolean = true) => {
-    const toSend = confirmedUpcomingBookings.filter(b => !b.reminder_sent);
+    // Filter logic: unsent AND not attempted yet
+    const toSend = confirmedUpcomingBookings.filter(b => 
+        !b.reminder_sent && !attemptedReminders.current.has(b.id)
+    );
+    
     if (toSend.length === 0) return;
 
     if (askConfirm && !confirm(`Vuoi inviare ${toSend.length} email di promemoria in sequenza?`)) return;
 
     setIsSendingAll(true);
     let sentCount = 0;
+    let errorOccurred = false;
 
     for (const booking of toSend) {
+        // Mark as attempted immediately to prevent loops
+        attemptedReminders.current.add(booking.id);
+        
         setSendingReminder(booking.id);
         const success = await sendReminderEmail(booking, true);
-        if (success) sentCount++;
+        
+        if (success) {
+            sentCount++;
+        } else {
+            errorOccurred = true;
+            // If explicit user action, show error. If auto, maybe silent or log.
+            // But critically: STOP the loop if we can't send.
+            if (!askConfirm) {
+                console.error("Stopping auto-send due to error.");
+                setAutoSendEnabled(false); // Safety break
+                break;
+            }
+        }
+        
         // Delay to avoid rate limits
         await new Promise(r => setTimeout(r, 800));
     }
@@ -150,8 +176,13 @@ export default function TodayOverview({ bookings, upcomingBookings = [], onUpdat
     setIsSendingAll(false);
     onUpdate();
     
-    if (askConfirm || sentCount < toSend.length) {
+    if (askConfirm || (sentCount > 0 && sentCount < toSend.length)) {
         alert(`Processo completato. Inviati ${sentCount} su ${toSend.length} promemoria.`);
+    }
+    
+    if (errorOccurred && !askConfirm) {
+         // Optional: Notify user that auto-send was stopped
+         // alert("Auto-invio interrotto per errori. Controlla la console o riprova manualmente.");
     }
   };
 
@@ -173,7 +204,7 @@ export default function TodayOverview({ bookings, upcomingBookings = [], onUpdat
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="flex flex-col gap-6">
         {/* Lista Appuntamenti Oggi */}
         <div>
           <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">In Programma</h3>

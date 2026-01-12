@@ -123,11 +123,6 @@ export default function AdminDashboard() {
 
   // If Friday (5), lookahead 3 days (Sat, Sun, Mon)
   // If Saturday (6), lookahead 2 days (Sun, Mon)
-  // If Sunday (0), lookahead 1 day (Mon) - but usually logic is just "tomorrow"
-  // User request: Mon/Wed visits. 
-  // Mon visits need reminder sent on previous Fri/Sat/Sun.
-  // Wed visits need reminder sent on Tue.
-  
   if (dayOfWeek === 5) lookaheadDays = 3; // Friday -> Show until Monday
   if (dayOfWeek === 6) lookaheadDays = 2; // Saturday -> Show until Monday
   
@@ -192,16 +187,9 @@ export default function AdminDashboard() {
         {activeTab === 'schedule' ? (
           <AdminSchedule />
         ) : (
-          <>
-            {/* Oggi Card */}
-            <TodayOverview 
-              bookings={todayBookings} 
-              upcomingBookings={upcomingBookings}
-              onUpdate={fetchBookings} 
-            />
-
-            {/* Filters & Stats */}
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+          <div className="space-y-6">
+            {/* Filters & Stats - Moved to top for quick access */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               <button
                 onClick={() => setFilter('today')}
                 className={`p-4 rounded-xl border shadow-sm transition-all text-left ${
@@ -249,118 +237,134 @@ export default function AdminDashboard() {
               </button>
             </div>
 
-            {/* Search Bar */}
-            <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-200 mb-6 flex items-center space-x-4">
-              <Search className="w-5 h-5 text-gray-400" />
-              <input
-                type="text"
-                placeholder="Cerca per nome, email o telefono..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="flex-grow outline-none text-gray-700 placeholder-gray-400"
-              />
-            </div>
+            {/* Split Layout: Table (Left) + Today Overview (Right) */}
+            <div className="grid grid-cols-1 xl:grid-cols-3 gap-8 items-start">
+                
+                {/* Main Content: Table & Search - Takes 2/3 space on large screens */}
+                <div className="xl:col-span-2 space-y-6">
+                    {/* Search Bar */}
+                    <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-200 flex items-center space-x-4">
+                      <Search className="w-5 h-5 text-gray-400" />
+                      <input
+                        type="text"
+                        placeholder="Cerca per nome, email o telefono..."
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        className="flex-grow outline-none text-gray-700 placeholder-gray-400"
+                      />
+                    </div>
 
-            {/* Table */}
-            <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-              <div className="overflow-x-auto">
-                <table className="w-full text-left">
-                  <thead className="bg-gray-50 border-b border-gray-200">
-                    <tr>
-                      <th className="px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Data e Ora</th>
-                      <th className="px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Paziente</th>
-                      <th className="px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Contatti</th>
-                      <th className="px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Stato</th>
-                      <th className="px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider text-right">Azioni</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-gray-200">
-                    {loading ? (
-                      <tr>
-                        <td colSpan={5} className="px-6 py-8 text-center text-gray-500">
-                          Caricamento...
-                        </td>
-                      </tr>
-                    ) : filteredBookings.length === 0 ? (
-                      <tr>
-                        <td colSpan={5} className="px-6 py-8 text-center text-gray-500">
-                          Nessun appuntamento trovato.
-                        </td>
-                      </tr>
-                    ) : (
-                      filteredBookings.map((booking) => (
-                        <tr 
-                          key={booking.id} 
-                          onClick={() => setSelectedBooking(booking)}
-                          className="hover:bg-gray-50 transition-colors cursor-pointer"
-                        >
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <div className="flex flex-col">
-                              <span className="font-semibold text-gray-900 flex items-center">
-                                <Calendar className="w-4 h-4 mr-2 text-blue-600" />
-                                {new Date(booking.date).toLocaleDateString('it-IT')}
-                              </span>
-                              <span className="text-sm text-gray-500 flex items-center mt-1">
-                                <Clock className="w-4 h-4 mr-2" />
-                                {booking.time}
-                              </span>
-                            </div>
-                          </td>
-                          <td className="px-6 py-4">
-                            <div className="flex items-center">
-                              <div className="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-700 font-bold mr-3">
-                                {booking.name.charAt(0).toUpperCase()}
-                              </div>
-                              <div>
-                                <div className="text-sm font-medium text-gray-900">{booking.name}</div>
-                                <div className="text-xs text-gray-500">ID: {booking.id.slice(0, 8)}...</div>
-                              </div>
-                            </div>
-                          </td>
-                          <td className="px-6 py-4">
-                            <div className="flex flex-col space-y-1">
-                              <div className="flex items-center text-sm text-gray-600">
-                                <Mail className="w-4 h-4 mr-2 text-gray-400" />
-                                {booking.email}
-                              </div>
-                              <div className="flex items-center text-sm text-gray-600">
-                                <Phone className="w-4 h-4 mr-2 text-gray-400" />
-                                {booking.phone}
-                              </div>
-                            </div>
-                          </td>
-                          <td className="px-6 py-4">
-                            {booking.status === 'confirmed' ? (
-                              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                                <CheckCircle className="w-3 h-3 mr-1" />
-                                Confermato
-                              </span>
+                    {/* Table */}
+                    <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                      <div className="overflow-x-auto">
+                        <table className="w-full text-left">
+                          <thead className="bg-gray-50 border-b border-gray-200">
+                            <tr>
+                              <th className="px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Data e Ora</th>
+                              <th className="px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Paziente</th>
+                              <th className="px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Contatti</th>
+                              <th className="px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Stato</th>
+                              <th className="px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider text-right">Azioni</th>
+                            </tr>
+                          </thead>
+                          <tbody className="divide-y divide-gray-200">
+                            {loading ? (
+                              <tr>
+                                <td colSpan={5} className="px-6 py-8 text-center text-gray-500">
+                                  Caricamento...
+                                </td>
+                              </tr>
+                            ) : filteredBookings.length === 0 ? (
+                              <tr>
+                                <td colSpan={5} className="px-6 py-8 text-center text-gray-500">
+                                  Nessun appuntamento trovato.
+                                </td>
+                              </tr>
                             ) : (
-                              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
-                                <XCircle className="w-3 h-3 mr-1" />
-                                Cancellato
-                              </span>
+                              filteredBookings.map((booking) => (
+                                <tr 
+                                  key={booking.id} 
+                                  onClick={() => setSelectedBooking(booking)}
+                                  className="hover:bg-gray-50 transition-colors cursor-pointer"
+                                >
+                                  <td className="px-6 py-4 whitespace-nowrap">
+                                    <div className="flex flex-col">
+                                      <span className="font-semibold text-gray-900 flex items-center">
+                                        <Calendar className="w-4 h-4 mr-2 text-blue-600" />
+                                        {new Date(booking.date).toLocaleDateString('it-IT')}
+                                      </span>
+                                      <span className="text-sm text-gray-500 flex items-center mt-1">
+                                        <Clock className="w-4 h-4 mr-2" />
+                                        {booking.time}
+                                      </span>
+                                    </div>
+                                  </td>
+                                  <td className="px-6 py-4">
+                                    <div className="flex items-center">
+                                      <div className="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-700 font-bold mr-3">
+                                        {booking.name.charAt(0).toUpperCase()}
+                                      </div>
+                                      <div>
+                                        <div className="text-sm font-medium text-gray-900">{booking.name}</div>
+                                        <div className="text-xs text-gray-500">ID: {booking.id.slice(0, 8)}...</div>
+                                      </div>
+                                    </div>
+                                  </td>
+                                  <td className="px-6 py-4">
+                                    <div className="flex flex-col space-y-1">
+                                      <div className="flex items-center text-sm text-gray-600">
+                                        <Mail className="w-4 h-4 mr-2 text-gray-400" />
+                                        {booking.email}
+                                      </div>
+                                      <div className="flex items-center text-sm text-gray-600">
+                                        <Phone className="w-4 h-4 mr-2 text-gray-400" />
+                                        {booking.phone}
+                                      </div>
+                                    </div>
+                                  </td>
+                                  <td className="px-6 py-4">
+                                    {booking.status === 'confirmed' ? (
+                                      <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                        <CheckCircle className="w-3 h-3 mr-1" />
+                                        Confermato
+                                      </span>
+                                    ) : (
+                                      <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                                        <XCircle className="w-3 h-3 mr-1" />
+                                        Cancellato
+                                      </span>
+                                    )}
+                                  </td>
+                                  <td className="px-6 py-4 text-right">
+                                    {booking.status === 'confirmed' && (
+                                      <button
+                                        onClick={(e) => handleCancel(e, booking.id)}
+                                        className="text-red-600 hover:text-red-900 hover:bg-red-50 p-2 rounded-full transition-colors"
+                                        title="Cancella Prenotazione"
+                                      >
+                                        <Trash2 className="w-5 h-5" />
+                                      </button>
+                                    )}
+                                  </td>
+                                </tr>
+                              ))
                             )}
-                          </td>
-                          <td className="px-6 py-4 text-right">
-                            {booking.status === 'confirmed' && (
-                              <button
-                                onClick={(e) => handleCancel(e, booking.id)}
-                                className="text-red-600 hover:text-red-900 hover:bg-red-50 p-2 rounded-full transition-colors"
-                                title="Cancella Prenotazione"
-                              >
-                                <Trash2 className="w-5 h-5" />
-                              </button>
-                            )}
-                          </td>
-                        </tr>
-                      ))
-                    )}
-                  </tbody>
-                </table>
-              </div>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                </div>
+
+                {/* Sidebar: Today & Upcoming - Takes 1/3 space on large screens */}
+                <div className="xl:col-span-1">
+                    <TodayOverview 
+                      bookings={todayBookings} 
+                      upcomingBookings={upcomingBookings}
+                      onUpdate={fetchBookings} 
+                    />
+                </div>
             </div>
-          </>
+          </div>
         )}
       </main>
 
