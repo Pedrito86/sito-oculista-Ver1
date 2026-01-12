@@ -10,13 +10,13 @@ export default function ChiSono() {
           name="description" 
           content="Dott.ssa Maria Di Sanzo, oculista AUSL Bologna. Specialista in Oftalmologia: esperienza e approccio clinico per adulti e bambini." 
         />
-        <link rel="canonical" href="https://www.oculistadisanzo.it/chi-sono" />
-        <link rel="alternate" hrefLang="it" href="https://www.oculistadisanzo.it/chi-sono" />
+        <link rel="canonical" href="https://www.mariadisanzo.com/chi-sono" />
+        <link rel="alternate" hrefLang="it" href="https://www.mariadisanzo.com/chi-sono" />
         {/* Open Graph Tags */}
-        <meta property="og:title" content="Chi Sono | Dott.ssa Maria Di Sanzo – Oculista a Bologna" />
-        <meta property="og:description" content="Medico chirurgo specialista in Oftalmologia. Visite per adulti e bambini presso AUSL Bologna." />
-        <meta property="og:image" content="https://www.oculistadisanzo.it/oculista-bologna-di-sanzo.jpg" />
-        <meta property="og:url" content="https://www.oculistadisanzo.it/chi-sono" />
+        <meta property="og:title" content="Chi Sono | Dott.ssa Maria Di Sanzo - Oculista Bologna" />
+        <meta property="og:description" content="Dott.ssa Maria Di Sanzo, medico chirurgo specialista in Oftalmologia presso AUSL Bologna. Scopri il percorso formativo e le competenze." />
+        <meta property="og:image" content="https://www.mariadisanzo.com/oculista-bologna-di-sanzo.jpg" />
+        <meta property="og:url" content="https://www.mariadisanzo.com/chi-sono" />
         <meta property="og:type" content="profile" />
         
         {/* Structured Data (JSON-LD) */}
@@ -26,9 +26,9 @@ export default function ChiSono() {
               "@context": "https://schema.org",
               "@type": "Physician",
               "name": "Dott.ssa Maria Di Sanzo",
-              "image": "https://www.oculistadisanzo.it/oculista-bologna-di-sanzo.jpg",
-              "@id": "https://www.oculistadisanzo.it/chi-sono",
-              "url": "https://www.oculistadisanzo.it/chi-sono",
+              "image": "https://www.mariadisanzo.com/oculista-bologna-di-sanzo.jpg",
+              "@id": "https://www.mariadisanzo.com",
+              "url": "https://www.mariadisanzo.com/chi-sono",
               "telephone": "+393470700989",
               "jobTitle": "Oculista",
               "worksFor": {

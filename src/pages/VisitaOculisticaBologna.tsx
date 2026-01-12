@@ -11,13 +11,13 @@ export default function VisitaOculisticaBologna() {
           name="description" 
           content="Visita oculistica completa a Bologna con la Dott.ssa Di Sanzo. Esami vista, tonometria e fondo oculare all'Ospedale Maggiore." 
         />
-        <link rel="canonical" href="https://www.oculistadisanzo.it/visita-oculistica-bologna" />
-        <link rel="alternate" hrefLang="it" href="https://www.oculistadisanzo.it/visita-oculistica-bologna" />
+        <link rel="canonical" href="https://www.mariadisanzo.com/visita-oculistica-bologna" />
+        <link rel="alternate" hrefLang="it" href="https://www.mariadisanzo.com/visita-oculistica-bologna" />
         {/* Open Graph Tags */}
         <meta property="og:title" content="Visita Oculistica Bologna Completa | Dott.ssa Maria Di Sanzo" />
         <meta property="og:description" content="Controllo completo della vista, tonometria e fondo oculare a Bologna." />
-        <meta property="og:image" content="https://www.oculistadisanzo.it/oculista-bologna-di-sanzo.jpg" />
-        <meta property="og:url" content="https://www.oculistadisanzo.it/visita-oculistica-bologna" />
+        <meta property="og:image" content="https://www.mariadisanzo.com/oculista-bologna-di-sanzo.jpg" />
+        <meta property="og:url" content="https://www.mariadisanzo.com/visita-oculistica-bologna" />
         <meta property="og:type" content="website" />
         
         {/* Structured Data (JSON-LD) */}

@@ -306,12 +306,12 @@ export default function Prenotazione() {
           name="description" 
           content="Prenota online visita oculistica a Bologna con Dott.ssa Di Sanzo. Scegli data e orario dal calendario." 
         />
-        <link rel="canonical" href="https://www.oculistadisanzo.it/prenotazione" />
+        <link rel="canonical" href="https://www.mariadisanzo.com/prenotazione" />
         {/* Open Graph Tags */}
         <meta property="og:title" content="Prenota una Visita Oculistica | Dott.ssa Maria Di Sanzo" />
         <meta property="og:description" content="Prenota online la tua visita oculistica a Bologna. Scegli data e orario." />
-        <meta property="og:image" content="https://www.oculistadisanzo.it/oculista-bologna-di-sanzo.jpg" />
-        <meta property="og:url" content="https://www.oculistadisanzo.it/prenotazione" />
+        <meta property="og:image" content="https://www.mariadisanzo.com/oculista-bologna-di-sanzo.jpg" />
+        <meta property="og:url" content="https://www.mariadisanzo.com/prenotazione" />
         <meta property="og:type" content="website" />
       </Helmet>
       <div className="max-w-4xl mx-auto">

@@ -11,13 +11,13 @@ export default function Home() {
           name="description" 
           content="Oculista a Bologna presso AUSL. Visite oculistiche per adulti e bambini. Cura e prevenzione della vista. Prenota una visita." 
         />
-        <link rel="canonical" href="https://www.oculistadisanzo.it/" />
-        <link rel="alternate" hrefLang="it" href="https://www.oculistadisanzo.it/" />
+        <link rel="canonical" href="https://www.mariadisanzo.com/" />
+        <link rel="alternate" hrefLang="it" href="https://www.mariadisanzo.com/" />
         {/* Open Graph Tags */}
         <meta property="og:title" content="Oculista a Bologna | Dott.ssa Maria Di Sanzo" />
         <meta property="og:description" content="Visite oculistiche specialistiche per adulti e bambini a Bologna. Prenota il tuo appuntamento." />
-        <meta property="og:image" content="https://www.oculistadisanzo.it/oculista-bologna-di-sanzo.jpg" />
-        <meta property="og:url" content="https://www.oculistadisanzo.it/" />
+        <meta property="og:image" content="https://www.mariadisanzo.com/oculista-bologna-di-sanzo.jpg" />
+        <meta property="og:url" content="https://www.mariadisanzo.com/" />
         <meta property="og:type" content="website" />
         
         {/* Structured Data (JSON-LD) */}
@@ -27,9 +27,9 @@ export default function Home() {
               "@context": "https://schema.org",
               "@type": "Physician",
               "name": "Dott.ssa Maria Di Sanzo",
-              "image": "https://www.oculistadisanzo.it/oculista-bologna-di-sanzo.jpg",
-              "@id": "https://www.oculistadisanzo.it",
-              "url": "https://www.oculistadisanzo.it",
+              "image": "https://www.mariadisanzo.com/oculista-bologna-di-sanzo.jpg",
+              "@id": "https://www.mariadisanzo.com",
+              "url": "https://www.mariadisanzo.com",
               "telephone": "+393470700989",
               "address": {
                 "@type": "PostalAddress",

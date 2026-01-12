@@ -10,13 +10,13 @@ export default function Servizi() {
           name="description" 
           content="Servizi oculistici a Bologna, Dott.ssa Di Sanzo: visite adulti e bambini, OCT, campo visivo, screening glaucoma e tonometria." 
         />
-        <link rel="canonical" href="https://www.oculistadisanzo.it/servizi" />
-        <link rel="alternate" hrefLang="it" href="https://www.oculistadisanzo.it/servizi" />
+        <link rel="canonical" href="https://www.mariadisanzo.com/servizi" />
+        <link rel="alternate" hrefLang="it" href="https://www.mariadisanzo.com/servizi" />
         {/* Open Graph Tags */}
         <meta property="og:title" content="Servizi Oculistici Bologna | Dott.ssa Di Sanzo" />
         <meta property="og:description" content="Visite oculistiche complete, OCT, esame del fondo oculare e tonometria a Bologna." />
-        <meta property="og:image" content="https://www.oculistadisanzo.it/oculista-bologna-di-sanzo.jpg" />
-        <meta property="og:url" content="https://www.oculistadisanzo.it/servizi" />
+        <meta property="og:image" content="https://www.mariadisanzo.com/oculista-bologna-di-sanzo.jpg" />
+        <meta property="og:url" content="https://www.mariadisanzo.com/servizi" />
         <meta property="og:type" content="website" />
         
         {/* Structured Data (JSON-LD) */}

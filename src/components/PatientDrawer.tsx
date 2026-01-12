@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '../lib/supabase';
 import { X, Calendar, Phone, Mail, Clock, Save, Trash2, CheckCircle, RotateCcw, FileText, History } from 'lucide-react';
 
@@ -30,17 +30,7 @@ export default function PatientDrawer({ booking, isOpen, onClose, onUpdate }: Pa
   const [newDate, setNewDate] = useState('');
   const [newTime, setNewTime] = useState('');
 
-  // Reset state when booking changes
-  useEffect(() => {
-    if (booking) {
-      setNotes(booking.notes || '');
-      setNewDate(booking.date);
-      setNewTime(booking.time);
-      fetchHistory(booking.email);
-    }
-  }, [booking]);
-
-  const fetchHistory = async (email: string) => {
+  const fetchHistory = useCallback(async (email: string) => {
     if (!email) return;
     setLoadingHistory(true);
     try {
@@ -58,7 +48,17 @@ export default function PatientDrawer({ booking, isOpen, onClose, onUpdate }: Pa
     } finally {
       setLoadingHistory(false);
     }
-  };
+  }, [booking?.id]);
+
+  // Reset state when booking changes
+  useEffect(() => {
+    if (booking) {
+      setNotes(booking.notes || '');
+      setNewDate(booking.date);
+      setNewTime(booking.time);
+      fetchHistory(booking.email);
+    }
+  }, [booking, fetchHistory]);
 
   const handleSaveNotes = async () => {
     if (!booking) return;
@@ -91,7 +91,7 @@ export default function PatientDrawer({ booking, isOpen, onClose, onUpdate }: Pa
       if (error) throw error;
       onUpdate();
       onClose();
-    } catch (err) {
+    } catch {
       alert('Errore durante la cancellazione');
     }
   };
@@ -110,7 +110,7 @@ export default function PatientDrawer({ booking, isOpen, onClose, onUpdate }: Pa
       setRescheduling(false);
       onUpdate();
       alert('Appuntamente riprogrammato.');
-    } catch (err) {
+    } catch {
       alert('Errore durante la riprogrammazione');
     }
   };

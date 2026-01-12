@@ -6,29 +6,28 @@ const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-async function testConnection() {
-  console.log('Testing Supabase connection...');
+async function checkColumn() {
+  console.log('Checking for reminder_sent column...');
   try {
-    const { data, error } = await supabase.from('bookings').select('count', { count: 'exact', head: true });
+    // Try to select the column. Limit 1.
+    const { data, error } = await supabase
+      .from('bookings')
+      .select('reminder_sent')
+      .limit(1);
     
     if (error) {
-      console.error('❌ Connection failed or table not found:', error);
+      console.error('❌ Error selecting reminder_sent:', error);
+      if (error.message && error.message.includes('does not exist')) {
+        console.log('⚠️ Column reminder_sent likely MISSING.');
+      }
     } else {
-      console.log('✅ Connection successful!');
-      console.log('Table "bookings" exists. Row count:', data); // data is null for head:true usually, but count is in 'count' property? No, with head:true data is null, count is in result.count
+      console.log('✅ Column reminder_sent exists!');
+      console.log('Sample data:', data);
     }
     
-    // Check if we can get count properly
-    const { count, error: countError } = await supabase.from('bookings').select('*', { count: 'exact', head: true });
-    if (countError) {
-        console.error('❌ Count failed:', countError);
-    } else {
-        console.log('✅ Table access verified. Total bookings:', count);
-    }
-
   } catch (err) {
     console.error('❌ Unexpected error:', err);
   }
 }
 
-testConnection();
+checkColumn();

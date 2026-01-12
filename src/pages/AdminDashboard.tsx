@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
 import { LogOut, Calendar, Search, Trash2, Mail, Phone, Clock, CheckCircle, XCircle, Settings } from 'lucide-react';
@@ -30,7 +30,7 @@ export default function AdminDashboard() {
   
   const navigate = useNavigate();
 
-  const fetchBookings = async () => {
+  const fetchBookings = useCallback(async () => {
     const { data: { session } } = await supabase.auth.getSession();
     if (!session) {
       navigate('/admin');
@@ -51,11 +51,11 @@ export default function AdminDashboard() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [navigate]);
 
   useEffect(() => {
     fetchBookings();
-  }, [navigate]);
+  }, [fetchBookings]);
 
   const handleLogout = async () => {
     await supabase.auth.signOut();

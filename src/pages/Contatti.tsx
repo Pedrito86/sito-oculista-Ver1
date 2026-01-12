@@ -55,13 +55,13 @@ export default function Contatti() {
           name="description" 
           content="Contatta la Dott.ssa Di Sanzo per visite oculistiche a Bologna. Telefono, email e indicazioni per l'Ospedale Maggiore." 
         />
-        <link rel="canonical" href="https://www.oculistadisanzo.it/contatti" />
-        <link rel="alternate" hrefLang="it" href="https://www.oculistadisanzo.it/contatti" />
+        <link rel="canonical" href="https://www.mariadisanzo.com/contatti" />
+        <link rel="alternate" hrefLang="it" href="https://www.mariadisanzo.com/contatti" />
         {/* Open Graph Tags */}
         <meta property="og:title" content="Contatti e Prenotazioni | Oculista Bologna" />
         <meta property="og:description" content="Prenota la tua visita oculistica presso l'Ospedale Maggiore di Bologna. Contatti e indicazioni." />
-        <meta property="og:image" content="https://www.oculistadisanzo.it/oculista-bologna-di-sanzo.jpg" />
-        <meta property="og:url" content="https://www.oculistadisanzo.it/contatti" />
+        <meta property="og:image" content="https://www.mariadisanzo.com/oculista-bologna-di-sanzo.jpg" />
+        <meta property="og:url" content="https://www.mariadisanzo.com/contatti" />
         <meta property="og:type" content="website" />
         
         {/* Structured Data (JSON-LD) */}

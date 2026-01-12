@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { supabase } from '../lib/supabase';
 import emailjs from '@emailjs/browser';
 import { EMAIL_CONFIG } from '../config/email';
@@ -45,21 +45,6 @@ export default function TodayOverview({ bookings, upcomingBookings = [], onUpdat
     localStorage.setItem('autoSendReminders', String(autoSendEnabled));
   }, [autoSendEnabled]);
 
-  // Auto-send effect
-  useEffect(() => {
-    // Only consider bookings that are NOT sent AND NOT attempted in this session
-    const unsentReminders = confirmedUpcomingBookings.filter(b => 
-        !b.reminder_sent && !attemptedReminders.current.has(b.id)
-    );
-    
-    if (autoSendEnabled && unsentReminders.length > 0 && !isSendingAll && !sendingReminder) {
-        const timer = setTimeout(() => {
-            handleSendAllReminders(false); // false = no confirm
-        }, 2000); // 2 second delay to allow UI to settle and user to see what's happening
-        return () => clearTimeout(timer);
-    }
-  }, [confirmedUpcomingBookings, autoSendEnabled]);
-
   const handleBlockSlot = async (time: string) => {
     setBlockingSlot(time);
     const today = new Date().toISOString().split('T')[0];
@@ -85,7 +70,7 @@ export default function TodayOverview({ bookings, upcomingBookings = [], onUpdat
     }
   };
 
-  const sendReminderEmail = async (booking: Booking, isTomorrow: boolean) => {
+  const sendReminderEmail = useCallback(async (booking: Booking, isTomorrow: boolean) => {
     try {
         const templateParams = {
             to_name: 'Dott.ssa Di Sanzo',
@@ -119,7 +104,7 @@ export default function TodayOverview({ bookings, upcomingBookings = [], onUpdat
         console.error(`Errore invio reminder per ${booking.email}:`, err);
         return false;
     }
-  };
+  }, []);
 
   const handleSendReminder = async (booking: Booking, isTomorrow: boolean = false) => {
     setSendingReminder(booking.id);
@@ -134,7 +119,7 @@ export default function TodayOverview({ bookings, upcomingBookings = [], onUpdat
     }
   };
 
-  const handleSendAllReminders = async (askConfirm: boolean = true) => {
+  const handleSendAllReminders = useCallback(async (askConfirm: boolean = true) => {
     // Filter logic: unsent AND not attempted yet
     const toSend = confirmedUpcomingBookings.filter(b => 
         !b.reminder_sent && !attemptedReminders.current.has(b.id)
@@ -184,7 +169,22 @@ export default function TodayOverview({ bookings, upcomingBookings = [], onUpdat
          // Optional: Notify user that auto-send was stopped
          // alert("Auto-invio interrotto per errori. Controlla la console o riprova manualmente.");
     }
-  };
+  }, [confirmedUpcomingBookings, onUpdate, sendReminderEmail]);
+
+  // Auto-send effect
+  useEffect(() => {
+    // Only consider bookings that are NOT sent AND NOT attempted in this session
+    const unsentReminders = confirmedUpcomingBookings.filter(b => 
+        !b.reminder_sent && !attemptedReminders.current.has(b.id)
+    );
+    
+    if (autoSendEnabled && unsentReminders.length > 0 && !isSendingAll && !sendingReminder) {
+        const timer = setTimeout(() => {
+            handleSendAllReminders(false); // false = no confirm
+        }, 2000); // 2 second delay to allow UI to settle and user to see what's happening
+        return () => clearTimeout(timer);
+    }
+  }, [confirmedUpcomingBookings, autoSendEnabled, isSendingAll, sendingReminder, handleSendAllReminders]);
 
   return (
     <div className="space-y-8">

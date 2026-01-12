@@ -11,13 +11,13 @@ export default function OculistaPediatricoBologna() {
           name="description" 
           content="Visite oculistiche pediatriche a Bologna. Dott.ssa Di Sanzo: screening neonatale, cura ambliopia e strabismo nei bambini." 
         />
-        <link rel="canonical" href="https://www.oculistadisanzo.it/oculista-pediatrico-bologna" />
-        <link rel="alternate" hrefLang="it" href="https://www.oculistadisanzo.it/oculista-pediatrico-bologna" />
+        <link rel="canonical" href="https://www.mariadisanzo.com/oculista-pediatrico-bologna" />
+        <link rel="alternate" hrefLang="it" href="https://www.mariadisanzo.com/oculista-pediatrico-bologna" />
         {/* Open Graph Tags */}
         <meta property="og:title" content="Oculista Pediatrico Bologna | Visite per Bambini" />
         <meta property="og:description" content="Screening visivo neonatale, diagnosi e cura di ambliopia e strabismo a Bologna." />
-        <meta property="og:image" content="https://www.oculistadisanzo.it/oculista-bologna-di-sanzo.jpg" />
-        <meta property="og:url" content="https://www.oculistadisanzo.it/oculista-pediatrico-bologna" />
+        <meta property="og:image" content="https://www.mariadisanzo.com/oculista-bologna-di-sanzo.jpg" />
+        <meta property="og:url" content="https://www.mariadisanzo.com/oculista-pediatrico-bologna" />
         <meta property="og:type" content="website" />
         
         {/* Structured Data (JSON-LD) */}

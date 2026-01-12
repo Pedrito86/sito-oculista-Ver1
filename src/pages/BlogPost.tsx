@@ -16,13 +16,13 @@ export default function BlogPost() {
       <Helmet>
         <title>{post.title} | Blog Dott.ssa Di Sanzo</title>
         <meta name="description" content={post.excerpt} />
-        <link rel="canonical" href={`https://www.oculistadisanzo.it/blog/${post.slug}`} />
+        <link rel="canonical" href={`https://www.mariadisanzo.com/blog/${post.slug}`} />
         
         {/* Open Graph Tags */}
         <meta property="og:title" content={post.title} />
         <meta property="og:description" content={post.excerpt} />
-        <meta property="og:image" content={`https://www.oculistadisanzo.it${post.image}`} />
-        <meta property="og:url" content={`https://www.oculistadisanzo.it/blog/${post.slug}`} />
+        <meta property="og:image" content={`https://www.mariadisanzo.com${post.image}`} />
+        <meta property="og:url" content={`https://www.mariadisanzo.com/blog/${post.slug}`} />
         <meta property="og:type" content="article" />
       </Helmet>
 

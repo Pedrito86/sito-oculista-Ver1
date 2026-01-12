@@ -12,12 +12,12 @@ export default function Blog() {
           name="description" 
           content="Articoli su salute occhi, prevenzione e patologie. Consigli della Dott.ssa Maria Di Sanzo, oculista a Bologna." 
         />
-        <link rel="canonical" href="https://www.oculistadisanzo.it/blog" />
+        <link rel="canonical" href="https://www.mariadisanzo.com/blog" />
         {/* Open Graph Tags */}
         <meta property="og:title" content="Blog Oculistica | Consigli e News – Dott.ssa Di Sanzo" />
         <meta property="og:description" content="Articoli e approfondimenti su salute degli occhi e prevenzione." />
-        <meta property="og:image" content="https://www.oculistadisanzo.it/oculista-bologna-di-sanzo.jpg" />
-        <meta property="og:url" content="https://www.oculistadisanzo.it/blog" />
+        <meta property="og:image" content="https://www.mariadisanzo.com/oculista-bologna-di-sanzo.jpg" />
+        <meta property="og:url" content="https://www.mariadisanzo.com/blog" />
         <meta property="og:type" content="website" />
       </Helmet>
 
