@@ -91,6 +91,16 @@ export default function Prenotazione() {
 
   const isDayAvailable = (day: number) => {
     const date = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const dateOnly = new Date(date);
+    dateOnly.setHours(0, 0, 0, 0);
+
+    if (dateOnly < today) {
+      return false;
+    }
+
     const dateStr = date.toLocaleDateString('en-CA'); // YYYY-MM-DD local
 
     // 1. Check override
@@ -146,6 +156,16 @@ export default function Prenotazione() {
   const handleBooking = async (e: React.FormEvent) => {
     e.preventDefault();
     if (selectedDate && selectedSlot && formData.name && formData.email && formData.phone) {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      const selected = new Date(selectedDate);
+      selected.setHours(0, 0, 0, 0);
+
+      if (selected < today) {
+        setSubmitError('Non è possibile prenotare per una data passata.');
+        return;
+      }
+
       setIsSubmitting(true);
       setSubmitError(null);
 
