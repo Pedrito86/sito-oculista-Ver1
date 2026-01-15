@@ -281,12 +281,7 @@ export default function Cancellazione() {
           cancellation_link: link
         };
 
-        await emailjs.send(
-          EMAIL_CONFIG.SERVICE_ID,
-          EMAIL_CONFIG.TEMPLATE_ID,
-          templateParams,
-          EMAIL_CONFIG.PUBLIC_KEY
-        );
+        await emailjs.send(EMAIL_CONFIG.SERVICE_ID, EMAIL_CONFIG.TEMPLATE_ID, templateParams, EMAIL_CONFIG.PUBLIC_KEY);
         console.log('Email di riprogrammazione inviata con successo');
       } catch (emailErr) {
         console.error('Errore invio email riprogrammazione:', emailErr);
@@ -326,11 +321,66 @@ export default function Cancellazione() {
         if (updateError || !updateData || updateData.length === 0) {
           throw error || updateError || new Error('Cancellazione fallita');
         }
+
+        try {
+          const cleanEmail = booking.email.trim();
+          const formattedDate = new Date(booking.date).toLocaleDateString('it-IT', {
+            weekday: 'long',
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric'
+          });
+
+          const templateParams = {
+            to_name: 'Dott.ssa Di Sanzo',
+            from_name: booking.name,
+            from_email: cleanEmail,
+            patient_email: cleanEmail,
+            to_email: cleanEmail,
+            reply_to: cleanEmail,
+            phone: booking.phone,
+            date: formattedDate,
+            time: booking.time,
+            type: 'Cancellazione Visita'
+          };
+
+          await emailjs.send(EMAIL_CONFIG.SERVICE_ID, EMAIL_CONFIG.TEMPLATE_ID, templateParams, EMAIL_CONFIG.PUBLIC_KEY);
+        } catch (emailErr) {
+          console.error('Errore invio email cancellazione:', emailErr);
+        }
+
         setStatus('cancelled');
         return;
       }
 
       if (data) {
+        try {
+          const cleanEmail = booking.email.trim();
+          const formattedDate = new Date(booking.date).toLocaleDateString('it-IT', {
+            weekday: 'long',
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric'
+          });
+
+          const templateParams = {
+            to_name: 'Dott.ssa Di Sanzo',
+            from_name: booking.name,
+            from_email: cleanEmail,
+            patient_email: cleanEmail,
+            to_email: cleanEmail,
+            reply_to: cleanEmail,
+            phone: booking.phone,
+            date: formattedDate,
+            time: booking.time,
+            type: 'Cancellazione Visita'
+          };
+
+          await emailjs.send(EMAIL_CONFIG.SERVICE_ID, EMAIL_CONFIG.TEMPLATE_ID, templateParams, EMAIL_CONFIG.PUBLIC_KEY);
+        } catch (emailErr) {
+          console.error('Errore invio email cancellazione:', emailErr);
+        }
+
         setStatus('cancelled');
       } else {
         setStatus('error');

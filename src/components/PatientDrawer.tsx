@@ -1,4 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
+import emailjs from '@emailjs/browser';
+import { EMAIL_CONFIG } from '../config/email';
 import { supabase } from '../lib/supabase';
 import { X, Calendar, Phone, Mail, Clock, Save, Trash2, CheckCircle, RotateCcw, FileText, History } from 'lucide-react';
 
@@ -110,6 +112,33 @@ export default function PatientDrawer({ booking, isOpen, onClose, onUpdate }: Pa
       setRescheduling(false);
       onUpdate();
       alert('Appuntamente riprogrammato.');
+
+      try {
+        const cleanEmail = booking.email.trim();
+        const formattedDate = new Date(newDate).toLocaleDateString('it-IT', {
+          weekday: 'long',
+          day: 'numeric',
+          month: 'long',
+          year: 'numeric',
+        });
+
+        const templateParams = {
+          to_name: 'Dott.ssa Di Sanzo',
+          from_name: booking.name,
+          from_email: cleanEmail,
+          patient_email: cleanEmail,
+          to_email: cleanEmail,
+          reply_to: cleanEmail,
+          phone: booking.phone,
+          date: formattedDate,
+          time: newTime,
+          type: 'Riprogrammazione Appuntamento',
+        };
+
+        await emailjs.send(EMAIL_CONFIG.SERVICE_ID, EMAIL_CONFIG.TEMPLATE_ID, templateParams, EMAIL_CONFIG.PUBLIC_KEY);
+      } catch (err) {
+        console.error('Errore invio email riprogrammazione:', err);
+      }
     } catch {
       alert('Errore durante la riprogrammazione');
     }
