@@ -18,6 +18,7 @@ interface Booking {
   notes?: string;
   cancellation_token?: string;
   reminder_sent?: boolean;
+  // service?: string; // Column does not exist, using notes
 }
 
 export default function AdminDashboard() {
@@ -297,6 +298,11 @@ export default function AdminDashboard() {
                                         <Clock className="w-4 h-4 mr-2" />
                                         {booking.time}
                                       </span>
+                                      {booking.notes && (
+                                        <span className="text-xs text-blue-600 font-medium mt-1 ml-6">
+                                          {booking.notes}
+                                        </span>
+                                      )}
                                     </div>
                                   </td>
                                   <td className="px-6 py-4">

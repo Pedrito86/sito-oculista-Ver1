@@ -14,6 +14,7 @@ interface Booking {
   status: 'confirmed' | 'cancelled';
   notes?: string;
   reminder_sent?: boolean;
+  // service?: string;
 }
 
 interface TodayOverviewProps {
@@ -80,6 +81,7 @@ export default function TodayOverview({ bookings, upcomingBookings = [], onUpdat
             reply_to: 'info@oculistadisanzo.it',
             patient_email: booking.email,
             phone: booking.phone,
+            service: booking.notes || '',
             date: new Date(booking.date).toLocaleDateString('it-IT', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }),
             time: booking.time,
             type: isTomorrow ? 'Promemoria Appuntamento' : 'Reminder Appuntamento',
@@ -221,6 +223,7 @@ export default function TodayOverview({ bookings, upcomingBookings = [], onUpdat
                     <div>
                         <div className="font-medium text-gray-900">{booking.name}</div>
                         <div className="text-xs text-gray-500">{booking.phone}</div>
+                        {booking.notes && <div className="text-xs text-blue-600 font-medium">{booking.notes}</div>}
                     </div>
                   </div>
                   <button
@@ -345,6 +348,7 @@ export default function TodayOverview({ bookings, upcomingBookings = [], onUpdat
                                 </div>
                                 <div className="truncate">
                                     <div className="font-medium text-gray-900 truncate">{booking.name}</div>
+                                    {booking.notes && <div className="text-xs text-blue-600 truncate">{booking.notes}</div>}
                                 </div>
                             </div>
                             <button

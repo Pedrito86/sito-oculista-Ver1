@@ -18,6 +18,7 @@ export default function Cancellazione() {
     name: string;
     email: string;
     phone: string;
+    notes?: string;
     status: 'confirmed' | 'cancelled';
   } | null>(null);
 
@@ -44,7 +45,7 @@ export default function Cancellazione() {
       try {
         const { data, error } = await supabase
           .from('bookings')
-          .select('id, date, time, name, email, phone, status')
+          .select('id, date, time, name, email, phone, notes, status')
           .eq('cancellation_token', token)
           .single();
 
@@ -275,6 +276,7 @@ export default function Cancellazione() {
           to_email: booking.email,
           reply_to: booking.email,
           phone: booking.phone,
+          service: booking.notes || '',
           date: selectedDate.toLocaleDateString('it-IT', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }),
           time: selectedSlot,
           type: 'Riprogrammazione Visita',
@@ -339,6 +341,7 @@ export default function Cancellazione() {
             to_email: cleanEmail,
             reply_to: cleanEmail,
             phone: booking.phone,
+            service: booking.notes || '',
             date: formattedDate,
             time: booking.time,
             type: 'Cancellazione Visita'
@@ -371,6 +374,7 @@ export default function Cancellazione() {
             to_email: cleanEmail,
             reply_to: cleanEmail,
             phone: booking.phone,
+            service: booking.notes || '',
             date: formattedDate,
             time: booking.time,
             type: 'Cancellazione Visita'
@@ -418,6 +422,11 @@ export default function Cancellazione() {
                 </span>{' '}
                 alle ore <span className="font-semibold text-gray-900">{booking.time}</span>
               </p>
+              {booking.notes && (
+                <p className="text-blue-600 font-medium mt-1">
+                  {booking.notes}
+                </p>
+              )}
               <div className="w-24 h-1 bg-blue-600 mx-auto mt-6"></div>
             </div>
 

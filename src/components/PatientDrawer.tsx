@@ -13,7 +13,8 @@ interface Booking {
   phone: string;
   status: 'confirmed' | 'cancelled';
   notes?: string;
-  cancellation_token?: string; // Needed for cancellation RPC if we use the public one, but as admin we can use direct update
+  cancellation_token?: string;
+  // service?: string;
 }
 
 interface PatientDrawerProps {
@@ -244,6 +245,7 @@ export default function PatientDrawer({ booking, isOpen, onClose, onUpdate }: Pa
                 <Clock className="w-5 h-5 mr-3 text-gray-400" />
                 <span>{booking.time}</span>
               </div>
+              {/* Service removed as we use notes now */}
             </div>
 
             {/* Notes */}

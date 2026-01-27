@@ -5,6 +5,13 @@ import emailjs from '@emailjs/browser';
 import { EMAIL_CONFIG } from '../config/email';
 import { supabase } from '../lib/supabase';
 
+type BookingFormData = {
+  name: string;
+  email: string;
+  phone: string;
+  services: string[];
+};
+
 export default function Prenotazione() {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
@@ -13,10 +20,11 @@ export default function Prenotazione() {
   const [cancellationLink, setCancellationLink] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<BookingFormData>({
     name: '',
     email: '',
-    phone: ''
+    phone: '',
+    services: []
   });
   
   const [occupiedSlots, setOccupiedSlots] = useState<string[]>([]);
@@ -86,7 +94,7 @@ export default function Prenotazione() {
     setSelectedDate(null);
     setSelectedSlot(null);
     setBookingConfirmed(false);
-    setFormData({ name: '', email: '', phone: '' });
+    setFormData({ name: '', email: '', phone: '', services: [] });
   };
 
   const isDayAvailable = (day: number) => {
@@ -97,7 +105,7 @@ export default function Prenotazione() {
     const dateOnly = new Date(date);
     dateOnly.setHours(0, 0, 0, 0);
 
-    if (dateOnly < today) {
+    if (dateOnly <= today) {
       return false;
     }
 
@@ -155,14 +163,21 @@ export default function Prenotazione() {
 
   const handleBooking = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (selectedDate && selectedSlot && formData.name && formData.email && formData.phone) {
+    if (
+      selectedDate &&
+      selectedSlot &&
+      formData.name &&
+      formData.email &&
+      formData.phone &&
+      formData.services.length > 0
+    ) {
       const today = new Date();
       today.setHours(0, 0, 0, 0);
       const selected = new Date(selectedDate);
       selected.setHours(0, 0, 0, 0);
 
-      if (selected < today) {
-        setSubmitError('Non è possibile prenotare per una data passata.');
+      if (selected <= today) {
+        setSubmitError('Non è possibile prenotare per oggi o per una data passata.');
         return;
       }
 
@@ -170,6 +185,7 @@ export default function Prenotazione() {
       setSubmitError(null);
 
       const dateStr = selectedDate.toLocaleDateString('en-CA'); // YYYY-MM-DD
+      const servicesSummary = formData.services.join(' + ');
 
       try {
         // 1. Verifica disponibilità finale (double check)
@@ -195,6 +211,7 @@ export default function Prenotazione() {
               name: formData.name,
               email: formData.email,
               phone: formData.phone,
+              notes: servicesSummary,
               status: 'confirmed'
             }
           ])
@@ -221,6 +238,7 @@ export default function Prenotazione() {
           to_email: cleanEmail,       // Fallback comune
           reply_to: cleanEmail,       // Utile per il "Reply-To"
           phone: formData.phone,
+          service: servicesSummary,
           date: selectedDate.toLocaleDateString('it-IT', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }),
           time: selectedSlot,
           type: 'Prenotazione Visita',
@@ -439,7 +457,7 @@ export default function Prenotazione() {
                     setBookingConfirmed(false);
                     setSelectedDate(null);
                     setSelectedSlot(null);
-                    setFormData({ name: '', email: '', phone: '' });
+                    setFormData({ name: '', email: '', phone: '', services: [] });
                   }}
                   className="mt-4 text-blue-600 hover:text-blue-800 font-medium text-sm"
                 >
@@ -522,6 +540,45 @@ export default function Prenotazione() {
                           className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none"
                           placeholder="333 1234567"
                         />
+                      </div>
+                      <div>
+                        <label htmlFor="service" className="block text-sm font-medium text-gray-700 mb-1">
+                          Servizi richiesti *
+                        </label>
+                        <div className="space-y-3 mt-2">
+                          {[
+                            { id: 'Visita completa', label: 'Visita completa (da €120)' },
+                            { id: 'Visita oculistica pediatrica', label: 'Visita oculistica pediatrica (da €120)' },
+                            { id: 'Esame OCT', label: 'Esame OCT (da €100)' },
+                            { id: 'Screening visivo pediatrico', label: 'Screening visivo pediatrico (da €120)' }
+                          ].map((service) => (
+                            <div key={service.id} className="flex items-start">
+                              <div className="flex items-center h-5">
+                                <input
+                                  id={service.id}
+                                  name="services"
+                                  type="checkbox"
+                                  checked={formData.services.includes(service.id)}
+                                  onChange={(e) => {
+                                    const isChecked = e.target.checked;
+                                    setFormData(prev => ({
+                                      ...prev,
+                                      services: isChecked
+                                        ? [...prev.services, service.id]
+                                        : prev.services.filter(s => s !== service.id)
+                                    }));
+                                  }}
+                                  className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded"
+                                />
+                              </div>
+                              <div className="ml-3 text-sm">
+                                <label htmlFor={service.id} className="font-medium text-gray-700 select-none cursor-pointer">
+                                  {service.label}
+                                </label>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
                       </div>
                     </div>
 
