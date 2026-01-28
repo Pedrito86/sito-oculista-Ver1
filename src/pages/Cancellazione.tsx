@@ -127,6 +127,15 @@ export default function Cancellazione() {
     const date = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
     const dateStr = date.toLocaleDateString('en-CA');
 
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const dateOnly = new Date(date);
+    dateOnly.setHours(0, 0, 0, 0);
+
+    if (dateOnly <= today) {
+      return false;
+    }
+
     if (scheduleOverrides[dateStr] !== undefined) {
       return scheduleOverrides[dateStr];
     }
